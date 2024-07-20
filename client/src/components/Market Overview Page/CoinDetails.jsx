@@ -12,7 +12,7 @@ export default function CoinDetails() {
 
   useEffect(() => {
     cryptoAPI.getCoin(id).then((data) => {
-      setData(data)
+      setData(data);
       setDataFetched(true);
     });
   }, [setData]);
@@ -24,8 +24,24 @@ export default function CoinDetails() {
         return;
       }
       setCoinInfo(data);
+      console.log(data);
     });
   }, [setCoinInfo]);
+
+  const [arrow, setArrow] = useState(true);
+
+  useEffect(() => {
+    if (Number(coinInfo.changePercent24Hr) < 0) {
+      setArrow(false);
+    }
+  }, [Number(coinInfo.changePercent24Hr)]);
+
+  const [amount, setAmount] = useState(1);
+
+  const amountChange = (event) => {
+    const value = event.target.value;
+    setAmount(value);
+  }
 
   if (noCoin) {
     return (
@@ -39,16 +55,16 @@ export default function CoinDetails() {
               Looks like you stumbled upon an issue...
             </p>
             <p class="mb-4 text-base font-light text-gray-500 dark:text-gray-400">
-              In the meantime you can go back to the <a
-                  href="/market-overview"
-                  className="underline underline-offset-4 block py-2 px-3 md:p-0 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:text-primary-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Market Overview
-                </a>
+              In the meantime you can go back to the{" "}
+              <a
+                href="/market-overview"
+                className="underline underline-offset-4 block py-2 px-3 md:p-0 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:text-primary-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Market Overview
+              </a>
             </p>
-
           </div>
-        </div> 
+        </div>
       </section>
     );
   }
@@ -57,24 +73,61 @@ export default function CoinDetails() {
     <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
       <div className="py-20 max-w-screen-xl px-4 mx-auto 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+          {/* Coin Chart */}
           <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
-           <div className="mt-6 sm:mt-8 lg:mt-0">
-            <h1 className="text-base font-semibold mb-8 text-gray-900 sm:text-2xl dark:text-white"> 
-            {coinInfo.name} Price last 24h
-            </h1>
-           </div>
-          {dataFetched && (
-              <LineChart data={data} name={coinInfo.name}/>
-          )}
+            <div className="mt-6 sm:mt-8 lg:mt-0">
+              <h1 className="text-base font-semibold mb-8 text-gray-900 sm:text-2xl dark:text-white">
+                {coinInfo.name} Price last 24h
+              </h1>
+            </div>
+            {dataFetched && <LineChart data={data} name={coinInfo.name} />}
           </div>
+          {/* Coin Details */}
           <div className="mt-6 sm:mt-8 lg:mt-0">
             <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-              {coinInfo.name} {coinInfo.symbol} 
+              {coinInfo.name} {coinInfo.symbol}
             </h1>
             <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
               <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
                 ${Number(coinInfo.priceUsd).toFixed(2)}
               </p>
+            </div>
+
+            <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
+            {arrow 
+              ? (<span className="flex items-center bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                <svg
+                  width="20"
+                  height="19"
+                  viewBox="0 0 17 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.4918 9.58995L8.69222 6.23047C8.59227 6.11053 8.40806 6.11053 8.30811 6.23047L5.50853 9.58995C5.37284 9.75279 5.48863 10 5.70059 10L11.2997 10C11.5117 10 11.6275 9.75279 11.4918 9.58995Z"
+                    fill="#34AB80"
+                  ></path>
+                </svg>
+                {Number(coinInfo.changePercent24Hr).toFixed(2)}%
+              </span>) 
+              : (<span className="flex items-center bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                <svg
+                  width="20"
+                  height="19"
+                  viewBox="0 0 17 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.50821 6.41005L8.30778 9.76953C8.40773 9.88947 8.59194 9.88947 8.69189 9.76953L11.4915 6.41005C11.6272 6.24721 11.5114 6 11.2994 6H5.70026C5.4883 6 5.37252 6.24721 5.50821 6.41005Z"
+                    fill="#D95B5B"
+                  ></path>
+                </svg>
+                {Number(coinInfo.changePercent24Hr).toFixed(2)}%
+              </span>) 
+            }
+              
+              
             </div>
 
             <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
@@ -84,18 +137,18 @@ export default function CoinDetails() {
               <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
                 <div className="w-full">
                   <label
-                    htmlFor="brand"
+                    htmlFor="payment"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Price per unit
+                    You pay
                   </label>
                   <input
                     type="text"
-                    name="brand"
-                    id="brand"
+                    name="payment"
+                    id="payment"
                     disabled
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    value={Number(coinInfo.priceUsd).toFixed(2)}
+                    value={`$${(Number(coinInfo.priceUsd) * Number(amount)).toFixed(2)}`}
                     placeholder="Price"
                     required=""
                   />
@@ -105,7 +158,7 @@ export default function CoinDetails() {
                     htmlFor="amount"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Amount
+                    You get
                   </label>
                   <input
                     type="number"
@@ -113,6 +166,8 @@ export default function CoinDetails() {
                     id="amount"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="1"
+                    value={amount}
+                    onChange={amountChange}
                   />
                 </div>
               </div>
