@@ -24,11 +24,10 @@ TradeVault is a cryptocurrency trading platform designed to help users grow and 
 - npm (Node Package Manager) 
 
 ### Steps
-1. Download the project folder from the repository
+1. Clone the repository:
     ```bash
-    https://github.dev/crystal-wolfer/SoftUniJS/tree/main/JS%20Web/React/React%20Project
+    git clone https://github.com/crystal-wolfer/trade-vault-project.git
     ```
-    ![alt text](image.png)
 
 2. Navigate to the client directory
     ```bash
