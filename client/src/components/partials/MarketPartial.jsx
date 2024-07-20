@@ -18,8 +18,6 @@ export default function MarketPartial({
     }
   }, [changePercentage]);
 
-
-  console.log(_id);
   return (
     <div className="relative flex max-w-64 justify-center mx-4 md: py-4">
       <div className="w-56 py-6 px-10 bg-white border border-gray-200 rounded-3xl shadow dark:bg-gray-800 dark:border-gray-700">
@@ -102,3 +100,5 @@ export default function MarketPartial({
     </div>
   );
 }
+
+

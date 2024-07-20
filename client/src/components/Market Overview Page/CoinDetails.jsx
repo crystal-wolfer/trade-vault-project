@@ -89,7 +89,7 @@ export default function CoinDetails() {
             </h1>
             <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
               <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
-                ${Number(coinInfo.priceUsd).toFixed(2)}
+                $ {Number(coinInfo.priceUsd).toFixed(2)}
               </p>
             </div>
 
@@ -158,7 +158,7 @@ export default function CoinDetails() {
                     htmlFor="amount"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    You get
+                    You get {coinInfo.symbol}
                   </label>
                   <input
                     type="number"

@@ -4,6 +4,9 @@ import Feature from './Feature.jsx'
 import HowWorks from './HowWorks.jsx'
 import Customers from './Customers.jsx'
 import News from './News.jsx'
+import BasicToast from '../Toast Components/BasicToast.jsx'
+// import SuccessToast from '../Toast Components/SuccessToast.jsx'
+// import ErrorToast from '../Toast Components/ErrorToast.jsx'
 
 export default function Home() {
   return(
@@ -13,7 +16,8 @@ export default function Home() {
      <Feature />
      <HowWorks />
      <Customers />
-     <News /> 
+     <News />
+     <BasicToast /> 
     </>
   )
 }
