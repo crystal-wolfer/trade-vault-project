@@ -1,23 +1,7 @@
-import { useState, useEffect } from "react";
+import useToastTimer from "../../hooks/useToastTimer.js";
 
 export default function BasicToast() {
-  const [showToast, setShowToast] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(2); // Set the timer for 2 seconds
-
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => prev - 0.04);
-      }, 100);
-      return () => clearInterval(timer);
-    } else {
-      setShowToast(false);
-    }
-  }, [timeLeft]);
-
-  const handleClose = () => {
-    setShowToast(false);
-  };
+  const { showToast, timeLeft, handleClose } = useToastTimer(2);
 
   return (
     <div>
