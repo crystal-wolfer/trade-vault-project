@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Table from "./Table.jsx";
+import WishlistCard from "../partials/WishListCard.jsx";
 
 export default function MyProfile() {
   const [activeCard, setActiveCard] = useState("");
@@ -168,12 +169,19 @@ export default function MyProfile() {
               <Table />
             </div>}
           {activeCard === "wishList" && (
-            <div>
-              Wishlist: ...
+            <div className="flex items-start justify-start">
+            <div className="mx-auto max-w-screen-xl flex flex-wrap justify-start py-8">
+              <WishlistCard />
+              <WishlistCard />
+              <WishlistCard />
+              <WishlistCard />
+              <WishlistCard />
+            </div>
             </div>
           )}
           {activeCard === "account" && 
             <div>
+            
               Account Details: ...
             </div>}
         </div>
