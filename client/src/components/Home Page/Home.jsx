@@ -11,7 +11,7 @@ import SuccessToast from '../Toast Components/SuccessToast.jsx'
 export default function Home() {
   return(
     <>
-      <Hero/>
+     <Hero/>
      <Market/>
      <Feature />
      <HowWorks />
