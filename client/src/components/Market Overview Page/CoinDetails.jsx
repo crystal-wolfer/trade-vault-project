@@ -11,7 +11,7 @@ export default function CoinDetails() {
   const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
-    cryptoAPI.getCoinChartData(id).then((data) => {
+    cryptoAPI.getCoin(id).then((data) => {
       setData(data);
       setDataFetched(true);
     });
@@ -24,6 +24,7 @@ export default function CoinDetails() {
         return;
       }
       setCoinInfo(data);
+      console.log(data);
     });
   }, [setCoinInfo]);
 

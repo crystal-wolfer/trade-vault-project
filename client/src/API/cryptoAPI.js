@@ -24,7 +24,7 @@ try {
 
 // using the following free API: https://rapidapi.com/sparior/api/cryptocurrency-markets/playground/apiendpoint_dc38c718-1e01-4d38-8aea-7a40d57f6a48 
 
-export const getCoinChartData = async(id) => {
+export const getCoin = async(id) => {
   const interval = 1 // 1 day
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - interval);
