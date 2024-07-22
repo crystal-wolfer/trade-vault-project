@@ -2,6 +2,7 @@ export default function NewsPartial({
   title,
   preview,
   publisher,
+  icon,
   url,
 }){
   return(
@@ -22,7 +23,7 @@ export default function NewsPartial({
               <div className="flex items-center space-x-4">
                 <img
                   className="w-7 h-7"
-                  src="news.svg"
+                  src={icon}
                   alt="Publisher avatar"
                 />
                 <span className="font-medium dark:text-white">{publisher}</span>

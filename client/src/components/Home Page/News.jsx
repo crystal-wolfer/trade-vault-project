@@ -30,6 +30,8 @@ export default function News() {
               title = {item.title}
               preview = {item.excerpt}
               publisher = {item.publisher.name}
+              icon = {item.publisher.favicon}
+              thumbnail = {item.thumbnail}
               url = {item.url}
             />
           ))}
