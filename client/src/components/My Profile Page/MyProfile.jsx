@@ -1,4 +1,5 @@
 import { useState } from "react";
+import  useCoins  from "../../hooks/useCoins.js"
 
 import Table from "./Table.jsx";
 import WishlistCard from "../partials/WishListCard.jsx";
@@ -9,6 +10,9 @@ export default function MyProfile() {
   const handleCardClick = (card) => {
     setActiveCard(card);
   };
+
+  const { coins, error } = useCoins();
+
 
   return (
     <div className="flex items-center justify-center bg-gray-100 py-16">
@@ -55,7 +59,7 @@ export default function MyProfile() {
                     Trading Orders
                   </h5>
                   <h3 className="font-bold text-3xl">
-                    5 orders
+                    {coins.length} orders
                     <span className="text-green-500">
                       <i className="fas fa-caret-up"></i>
                     </span>

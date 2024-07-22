@@ -1,19 +1,12 @@
-import * as serverDataAPI from "../../API/serverDataAPI.js";
+import  useCoins  from "../../hooks/useCoins.js"
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import EditOrderModal from "../partials/EditOrderModal.jsx";
 import DeleteOrderModal from "../partials/DeleteOrderModal.jsx";
 
 function Table() {
-  const [coins, setCoins] = useState([]);
-
-  useEffect(() => {
-    serverDataAPI.getAll().then((result) => {
-      console.log(result);
-      setCoins(result);
-    });
-  }, []);
+  const { coins, error } = useCoins();
 
   const [showEditModal, setShowEditModal] = useState(false);
 
