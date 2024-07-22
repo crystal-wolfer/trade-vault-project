@@ -2,7 +2,7 @@ function DeleteOrderModal({ show, onClose }){
   if (!show) return null;
 
   return(
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="z-[1000] fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative p-8 w-full max-w-3xl h-full md:h-auto mt-20">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button
@@ -43,7 +43,7 @@ function DeleteOrderModal({ show, onClose }){
                 />
               </svg>
               <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                Are you sure you want to delete this order?
+                Are you sure you want to remove this item?
               </h3>
               <button
                 data-modal-toggle="delete-modal"

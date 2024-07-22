@@ -18,9 +18,11 @@ export default function WishlistCard({ logo, name, symbol, price, change }) {
     <>
       <div className="relative bg-white shadow-md rounded-lg p-6 text-center border border-gray-200">
         {/* Delete Indicator */}
-        <span className="bg-red-200 text-xs font-medium text-red-800 flex items-center justify-center h-8 w-8 rounded-full cursor-pointer hover:bg-red-300 dark:bg-red-900 dark:text-red-200 dark:hover:bg-red-700 absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+        <span
+          onClick={handleOpenDeleteModal}
+          className="bg-red-200 text-xs font-medium text-red-800 flex items-center justify-center h-8 w-8 rounded-full cursor-pointer hover:bg-red-300 dark:bg-red-900 dark:text-red-200 dark:hover:bg-red-700 absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"
+        >
           <svg
-            onClick={handleOpenDeleteModal}
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4"
             viewBox="0 0 20 20"
