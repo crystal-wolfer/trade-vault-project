@@ -169,8 +169,8 @@ export default function MyProfile() {
               <Table />
             </div>}
           {activeCard === "wishList" && (
-            <div className="flex items-start justify-start">
-            <div className="mx-auto max-w-screen-xl flex flex-wrap justify-start py-8">
+            <div className="flex w-full max-w-screen-xl mx-auto items-center justify-center">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 p-6">
               <WishlistCard />
               <WishlistCard />
               <WishlistCard />
