@@ -1,7 +1,7 @@
 /* Add Styles no type selectors*/
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
 
-/* Login.module.css */
+/* Register.module.css */
 .wrapper {
   padding-top: 2rem;
   display: flex;
@@ -40,17 +40,6 @@
   justify-content: center;
 }
 
-.loginForm {
-  max-width: 500px;
-  margin: auto;
-}
-
-.loginForm h2 {
-  margin-bottom: 20px;
-  color: #333;
-  font-weight: 600;
-}
-
 .inputGroup {
   margin-bottom: 20px;
 }
@@ -84,7 +73,6 @@
     "system-ui", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans",
     "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji";
-  margin-bottom: 1rem;
 }
 
 .button {
@@ -93,6 +81,7 @@
   padding-bottom: 0.75rem;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+  margin-top: 1rem;
   margin-right: 0.75rem;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -140,12 +129,27 @@
     "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji";
   font-size: 12px;
-
 }
 
 .forgotLink:hover,
 .signupLink:hover {
   text-decoration: underline;
+}
+
+
+.errorMessage {
+  margin-left: 0.5rem; 
+  font-size: 0.875rem; 
+  line-height: 1.25rem; 
+  color: #ef4444;
+  
+}
+
+.errorMessageSmall {
+  margin-left: 0.5rem; 
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #f87171; 
 }
 
 @media (max-width: 768px) {
