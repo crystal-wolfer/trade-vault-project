@@ -1,17 +1,23 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 import styles from "./Register.module.css";
+import PasswordIndicator from "./PasswordStrength.jsx";
 
 export default function Register() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
-  const password = watch("password");
-  const confirmPassword = watch("confirmPassword");
+  const [password, setPassword] = useState("")
+  const [indicator, setShowIndicator] = useState(false);
+
+   const onPasswordChange = (e) => {
+        setPassword(e.target.value);
+        setShowIndicator(true);
+  };
 
   const onSubmit = (data) => {
     console.log(data);
@@ -25,8 +31,53 @@ export default function Register() {
         </div>
         <div className={styles.loginSection}>
           <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
-            <h2>Account Register</h2>
-            <div className={styles.nameInputGroup}>
+            <h2 className="py-2">Account Register</h2>
+            <div className={styles.inputGroup}>
+              <input
+                {...register("email", { required: "Email is required" })}
+                type="text"
+                placeholder="Email"
+              />
+              {errors.email && (
+                <p className={styles.errorMessage}>{errors.email.message}</p>
+              )}
+            </div>
+            <div
+              className={`${styles.inputGroup} ${styles.passwordErrorContainer}`}
+            >
+              <input
+                {...register("password", {
+                  required: "Password is required",
+                })}
+                onChange = { onPasswordChange }
+                type="text"
+                placeholder="Password"
+              />
+              {indicator && (
+              <div className="pt-2">
+                <PasswordIndicator password={ password } />
+              </div>
+              )} 
+
+            </div>
+            <div className={styles.inputGroup}>
+              <input
+                {...register("confirmPassword", {
+                  required: "Confirm password is required",
+                  validate: (value) =>
+                    value === password || "Passwords do not match",
+                })}
+                type="text"
+                placeholder="Confirm password"
+              />
+              {errors.confirmPassword && (
+                <p className={styles.errorMessage}>
+                  {errors.confirmPassword?.message}
+                </p>
+              )}
+            </div>
+
+                        <div className={styles.nameInputGroup}>
               <div className={styles.inputGroupHalf}>
                 <input
                   {...register("firstName", {
@@ -55,69 +106,6 @@ export default function Register() {
                   </p>
                 )}
               </div>
-            </div>
-
-            <div className={styles.inputGroup}>
-              <input
-                {...register("email", { required: "Email is required" })}
-                type="text"
-                placeholder="Email"
-              />
-              {errors.email && (
-                <p className={styles.errorMessage}>{errors.email.message}</p>
-              )}
-            </div>
-            <div
-              className={`${styles.inputGroup} ${styles.passwordErrorContainer}`}
-            >
-              <input
-                {...register("password", {
-                  required: "Password is required",
-                  validate: (value) => {
-                    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-                    if (!pattern.test(value)) {
-                      return `
-                        - At least 8 characters
-                        - 1 uppercase letter
-                        - 1 lowercase letter
-                        - 1 digit
-                        - 1 special character (@$!%*?&)`;
-                    }
-                    return true;
-                  },
-                })}
-                type="text"
-                placeholder="Password"
-              />
-              {errors.password && (
-                <div className={styles.passwordErrorMessage}>
-                  <p className={styles.errorMessage}>
-                    Password must include:
-                    {errors.password.message.split("\n").map((line, index) => (
-                      <span className={styles.errorMessageSmall} key={index}>
-                        {line}
-                        <br />
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              )}
-            </div>
-            <div className={styles.inputGroup}>
-              <input
-                {...register("confirmPassword", {
-                  required: "Confirm password is required",
-                  validate: (value) =>
-                    value === password || "Passwords do not match",
-                })}
-                type="text"
-                placeholder="Confirm password"
-              />
-              {errors.confirmPassword && (
-                <p className={styles.errorMessage}>
-                  {errors.confirmPassword?.message}
-                </p>
-              )}
             </div>
 
             <button type="submit" className={styles.button}>
