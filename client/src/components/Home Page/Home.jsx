@@ -14,7 +14,6 @@ export default function Home() {
 
   const location = useLocation();
   const message = location.state?.message;
-  console.log(message);
 
   return(
     <>

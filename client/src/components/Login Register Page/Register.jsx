@@ -13,7 +13,7 @@ export default function Register() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const [password, setPassword] = useState("");
@@ -34,6 +34,7 @@ export default function Register() {
     
     if (result.status === 409) {
       setError(result.message);
+      return;
     }
     
     updateAuthState(result);
@@ -124,8 +125,8 @@ export default function Register() {
               </div>
             </div>
 
-            <button type="submit" className={styles.button}>
-              Sign Up
+            <button type="submit" className={styles.button} disabled={isSubmitting}>
+              {isSubmitting ? "Loading..." : "Sign Up"}
             </button>
 
             <span className={styles.infoText}> Already have an account?</span>

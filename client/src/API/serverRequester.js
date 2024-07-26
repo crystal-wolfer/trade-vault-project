@@ -31,7 +31,7 @@ export default async function serverRequester(method, url, data) {
     if (response.status === 409){
       return {
         status: 409,
-        message:"A user with this email already exists"
+        message:"Тhis email already exists"
         }
     }
 
