@@ -1,8 +1,13 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Navigate } from "react-router-dom";
+
+import * as authAPI from "../../API/authAPI.js";
 
 import styles from "./Register.module.css";
 import PasswordIndicator from "./PasswordStrength.jsx";
+import ErrorToast from "../Toast Components/ErrorToast.jsx";
+import { AuthContext } from "../../contexts/authContext.js";
 
 export default function Register() {
   const {
@@ -11,16 +16,28 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
-  const [password, setPassword] = useState("")
+  const [password, setPassword] = useState("");
   const [indicator, setShowIndicator] = useState(false);
 
-   const onPasswordChange = (e) => {
-        setPassword(e.target.value);
-        setShowIndicator(true);
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
+    setShowIndicator(true);
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const [error, setError] = useState(null);
+  const [redirect, setRedirect] = useState(false);
+
+  const {updateAuthState} = useContext(AuthContext)
+ 
+  const onSubmit = async (data) => {
+    const result = await authAPI.register(data);
+    
+    if (result.status === 409) {
+      setError(result.message);
+    }
+    
+    updateAuthState(result);
+    setRedirect(true);    
   };
 
   return (
@@ -35,7 +52,7 @@ export default function Register() {
             <div className={styles.inputGroup}>
               <input
                 {...register("email", { required: "Email is required" })}
-                type="text"
+                type="email"
                 placeholder="Email"
               />
               {errors.email && (
@@ -49,16 +66,15 @@ export default function Register() {
                 {...register("password", {
                   required: "Password is required",
                 })}
-                onChange = { onPasswordChange }
-                type="text"
+                onChange={onPasswordChange}
+                type="password"
                 placeholder="Password"
               />
               {indicator && (
-              <div className="pt-2">
-                <PasswordIndicator password={ password } />
-              </div>
-              )} 
-
+                <div className="pt-2">
+                  <PasswordIndicator password={password} />
+                </div>
+              )}
             </div>
             <div className={styles.inputGroup}>
               <input
@@ -67,7 +83,7 @@ export default function Register() {
                   validate: (value) =>
                     value === password || "Passwords do not match",
                 })}
-                type="text"
+                type="password"
                 placeholder="Confirm password"
               />
               {errors.confirmPassword && (
@@ -77,7 +93,7 @@ export default function Register() {
               )}
             </div>
 
-                        <div className={styles.nameInputGroup}>
+            <div className={styles.nameInputGroup}>
               <div className={styles.inputGroupHalf}>
                 <input
                   {...register("firstName", {
@@ -120,6 +136,14 @@ export default function Register() {
           </form>
         </div>
       </div>
+
+      {error !== null ? (
+        <div>
+          <ErrorToast error={error} />
+        </div>
+      ) : null}
+
+      {redirect && <Navigate to={"/"}  state={ {message: "Registration successful!"}}/>}
     </div>
   );
 }

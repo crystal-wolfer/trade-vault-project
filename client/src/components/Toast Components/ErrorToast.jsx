@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function ErrorToast() {
+export default function ErrorToast({error}) {
   const [showToast, setShowToast] = useState(true);
 
   const handleClose = () => {
@@ -28,7 +28,7 @@ export default function ErrorToast() {
             <span class="sr-only">Error icon</span>
           </div>
           <div className="ms-3 text-sm font-normal flex-1 text-left">
-            This is error messge!
+            {error}
           </div>
 
           <button

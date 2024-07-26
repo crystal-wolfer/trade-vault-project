@@ -4,9 +4,11 @@ import { useState } from "react";
 
 import EditOrderModal from "../partials/EditOrderModal.jsx";
 import DeleteOrderModal from "../partials/DeleteOrderModal.jsx";
+import ErrorToast from "../Toast Components/ErrorToast.jsx";
+
 
 function Table() {
-  const { coins, error } = useCoins();
+  const { coins, error } = useCoins([]);
 
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -211,6 +213,10 @@ function Table() {
         show={showDeleteModal}
         onClose={handleCloseDeleteModal}
       />
+
+      {/* Error Modal */}
+      {error !== "" ? (<ErrorToast error={error}/>) : null}
+      
     </>
   );
 }

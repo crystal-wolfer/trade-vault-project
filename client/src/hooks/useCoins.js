@@ -3,7 +3,7 @@ import * as serverDataAPI from "../API/serverDataAPI.js";
 
 const useCoins = () => {
   const [coins, setCoins] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -11,7 +11,8 @@ const useCoins = () => {
         const result = await serverDataAPI.getAll(); 
         setCoins(result);
       } catch (err) {
-        setError(err);
+        setError(err.message);
+        setCoins([]);
       }
     };
 

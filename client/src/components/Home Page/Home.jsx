@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import Hero from './Hero.jsx'
 import Market from './Market.jsx'
 import Feature from './Feature.jsx'
@@ -9,6 +11,11 @@ import SuccessToast from '../Toast Components/SuccessToast.jsx'
 // import ErrorToast from '../Toast Components/ErrorToast.jsx'
 
 export default function Home() {
+
+  const location = useLocation();
+  const message = location.state?.message;
+  console.log(message);
+
   return(
     <>
      <Hero/>
@@ -17,7 +24,7 @@ export default function Home() {
      <HowWorks />
      <Customers />
      <News />
-     <SuccessToast /> 
+     {message && <SuccessToast message={message}/>}
     </>
   )
 }

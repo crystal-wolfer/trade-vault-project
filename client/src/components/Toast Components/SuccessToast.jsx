@@ -1,6 +1,6 @@
 import useToastTimer from "../../hooks/useToastTimer.js";
 
-export default function SuccessToast() {
+export default function SuccessToast({message}) {
   const { showToast, timeLeft, handleClose } = useToastTimer(2); 
 
   return (
@@ -25,7 +25,7 @@ export default function SuccessToast() {
               <span class="sr-only">Check icon</span>
             </div>
             <div className="ms-3 text-sm font-normal flex-1 text-left">
-              This is success messge!
+              {message}
             </div>
             <button
               type="button"

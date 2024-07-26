@@ -13,16 +13,41 @@ export default async function serverRequester(method, url, data) {
     OPTIONS.body = JSON.stringify(data);
   }
 
+  // const userData = localService.getItem("userData");
+  // if (userData) {
+  //   token = userData.accessToken;
+  // }
+
+  // if (token) {
+  //   OPTIONS.headers = {
+  //     ...OPTIONS.headers,
+  //     "X-Authorization": token,
+  //   };
+  // }
+
   try {
-    const response = await fetch(url, OPTIONS); // Use the URL as the first argument
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
+    const response = await fetch(url, OPTIONS);
+  
+    if (response.status === 409){
+      return {
+        status: 409,
+        message:"A user with this email already exists"
+        }
     }
-    const result = await response.json(); // Await the JSON parsing
+
+    if (response.status === 403 || response.status === 401){
+      return {
+        status: response.status,
+        message: "Email or password incorrect"
+      };
+    }
+    
+    const result = await response.json();
+
     return result;
   } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
-    throw error;
+    console.error("There was a problem with the fetch operation:", error.message);
+    throw error.message;
   }
 }
 
