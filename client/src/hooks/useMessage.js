@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const useMessageHandler = () => {
+const useMessage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [message, setMessage] = useState(location.state?.message || '');
@@ -23,4 +23,4 @@ const useMessageHandler = () => {
   return message;
 };
 
-export default useMessageHandler;
+export default useMessage;
