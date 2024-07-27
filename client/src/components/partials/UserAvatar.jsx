@@ -1,11 +1,27 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../../contexts/authContext.js";
+import * as authAPI from "../../API/authAPI.js";
+
+
 
 export default function UserAvatar({ userData }) {
   const [showInfo, setShowInfo] = useState(false);
 
   const infoHandler = () => {
     setShowInfo(!showInfo);
+  };
+
+  const {updateAuthState} = useContext(AuthContext)
+  const navigate = useNavigate();
+
+
+  const logoutHandler = async() => {
+    const logout = await authAPI.logout();
+    updateAuthState({})
+    localStorage.clear();
+    navigate('/')
   };
 
   return (
@@ -16,7 +32,7 @@ export default function UserAvatar({ userData }) {
         type="button"
         data-dropdown-toggle="userDropdown"
         data-dropdown-placement="bottom-start"
-        className="w-6 h-6 rounded-full cursor-pointer"
+        className="w-8 h-8 rounded-full cursor-pointer"
         src="https://avatar.iran.liara.run/public"
         alt="User dropdown"
       />
@@ -43,12 +59,12 @@ export default function UserAvatar({ userData }) {
           </div>
 
           <div className="py-1">
-            <Link
-              to="/logout"
+            <a
+              onClick={logoutHandler}
               className="block px-4 py-2 text-sm text-primary-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
             >
               Sign out
-            </Link>
+            </a>
           </div>
         </div>
       )}

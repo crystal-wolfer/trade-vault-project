@@ -16,8 +16,6 @@ import CoinDetails from "./components/Market Overview Page/CoinDetails.jsx";
 import NotFound from "./components/Static Pages/404.jsx";
 
 function App() {
-
-
   const [authState, setAuthState] = useState({});
 
   const updateAuthState = (state) => {

@@ -22,6 +22,8 @@ export default function Login() {
 
   const submitHandler = async (data) => {
     const result = await authAPI.login(data);
+    console.log(result);
+
 
     if (result.status === 403) {
       setError(result.message);
@@ -30,7 +32,7 @@ export default function Login() {
 
     const {password, ...userData} = result;
     updateAuthState(userData);
-    localStorage.setItem('user', userData)
+    localStorage.setItem('user', JSON.stringify(userData))
     setRedirect(true);    
   };
 
