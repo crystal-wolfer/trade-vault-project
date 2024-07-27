@@ -39,6 +39,7 @@ export default function Register() {
     
     const {password, confirmPassword, ...userData} = result;
     updateAuthState(userData);
+    localStorage.setItem('user', JSON.stringify(userData))
     setRedirect(true);    
   };
 
