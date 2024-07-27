@@ -1,7 +1,8 @@
 import "./App.css";
 
 import { Routes, Route } from "react-router-dom";
-import { AuthContextProvider } from "./contexts/authContext.jsx";
+import { AuthContext } from "./contexts/authContext.js";
+import { useState, useEffect } from "react";
 
 import NavBar from "./components/NavBar.jsx";
 import Home from "./components/Home Page/Home.jsx";
@@ -16,6 +17,7 @@ import NotFound from "./components/Static Pages/404.jsx";
 
 function App() {
 
+
   const [authState, setAuthState] = useState({});
 
   const updateAuthState = (state) => {
@@ -26,7 +28,7 @@ function App() {
     email: authState.email,
     accessToken: authState.accessToken,
     firstName: authState.firstName,
-    isAuth: !!authState.email, // TODO: update to check for ownerId
+    isAuth: !!authState.email, 
     updateAuthState,
   }
 
@@ -39,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <AuthContextProvider>
+    <AuthContext.Provider value = {contextData}>
       <div>
         <NavBar />
         <Routes>
@@ -54,7 +56,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
-    </AuthContextProvider>
+    </AuthContext.Provider>
   );
 }
 

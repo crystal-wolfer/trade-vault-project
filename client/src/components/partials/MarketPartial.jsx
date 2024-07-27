@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../contexts/authContext.jsx";
+import { AuthContext } from "../../contexts/authContext.js";
 
 import ErrorToast from "../Toast Components/ErrorToast.jsx";
 

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/authContext.jsx";
+import { AuthContext } from "../../contexts/authContext.js";
 
 import * as authAPI from "../../API/authAPI.js";
 
