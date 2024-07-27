@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const useMessage = () => {
+const useMessage = (input) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [message, setMessage] = useState(location.state?.message || '');
+  const [message, setMessage] = useState(location.state?.message || input || "");
 
   useEffect(() => {
     if (location.state?.message) {
@@ -14,7 +14,7 @@ const useMessage = () => {
     if (message) {
       const timer = setTimeout(() => {
         setMessage('');
-      }, 5500); // Adjust the time as needed
+      }, 5500); 
 
       return () => clearTimeout(timer);
     }

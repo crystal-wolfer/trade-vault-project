@@ -6,6 +6,11 @@ import * as cryptoAPI from "../../API/cryptoAPI.js";
 import * as serverDataAPI from "../../API/serverDataAPI.js";
 
 import LineChart from "../partials/LineChart.jsx";
+import SuccessToast from "../Toast Components/SuccessToast.jsx";
+import useMessage from "../../hooks/useMessage.js";
+
+
+
 
 export default function CoinDetails() {
   const { id } = useParams();
@@ -13,12 +18,16 @@ export default function CoinDetails() {
   const [coinInfo, setCoinInfo] = useState([]);
   const [noCoin, setNoCoin] = useState(false);
   const [dataFetched, setDataFetched] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
+
+  const text = "Order Placed!"
+  const message = useMessage(text);
 
 
   const checkKeyDown = (e) => {
@@ -57,6 +66,7 @@ export default function CoinDetails() {
     setAmount(value);
   };
 
+
   if (noCoin) {
     return (
       <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
@@ -83,6 +93,9 @@ export default function CoinDetails() {
     );
   }
 
+  // Call the useMessage hook at the top level of the component
+  const getMessage = useMessage;
+
   // Submit Handler - Create Order
    const submitHandler = async ({price, amount}) => {
     const modifiedData = {
@@ -94,8 +107,7 @@ export default function CoinDetails() {
     }
 
     const result = await serverDataAPI.create(modifiedData);
-
-    
+    setSuccess(true);
    }
   return (
     <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
@@ -274,6 +286,8 @@ export default function CoinDetails() {
           </div>
         </div>
       </div>
+
+      {success && <SuccessToast message={message} />}
     </section>
   );
 }
