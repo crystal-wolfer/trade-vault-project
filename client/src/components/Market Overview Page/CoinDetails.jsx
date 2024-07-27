@@ -93,9 +93,9 @@ export default function CoinDetails() {
        symbol: coinInfo.symbol,
     }
 
-    //const result = serverDataAPI.create(modifiedData);
+    const result = await serverDataAPI.create(modifiedData);
 
-    console.log(modifiedData);
+    
    }
   return (
     <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
