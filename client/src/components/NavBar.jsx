@@ -20,7 +20,6 @@ const Navbar = () => {
   };
 
   const { isAuth, ...userData } = useContext(AuthContext);
-  console.log(userData);
 
   return (
     <nav className="mb-14 bg-white border-gray-200 dark:bg-gray-900 fixed w-full z-20 top-0 start-0">

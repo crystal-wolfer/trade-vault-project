@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function ErrorToast({error, handleCloseToast}) {
   const [showToast, setShowToast] = useState(true);

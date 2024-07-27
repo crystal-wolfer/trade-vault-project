@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/authContext.js";
 
@@ -74,10 +74,11 @@ export default function Login() {
                 })}
                 type="password"
                 placeholder="Password"
+                
               />
               {errors.password && (
                 <p className="text-red-500 text-sm m-2">
-                  {errors.email.password}
+                  {errors.password.message}
                 </p>
               )}
             </div>

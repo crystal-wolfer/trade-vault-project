@@ -1,5 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/authContext.js";
+
+import ErrorToast from "../Toast Components/ErrorToast.jsx";
 
 
 export default function MarketPartial({
@@ -17,6 +20,21 @@ export default function MarketPartial({
       setArrow(false);
     }
   }, [changePercentage]);
+
+  const { isAuth } = useContext(AuthContext);
+
+  const handleClick = (e) => {
+    if (!isAuth) {
+      e.preventDefault();
+      setError('You must be logged in!')
+    }
+  };
+
+  const [error, setError] = useState(null);
+
+  const handleCloseToast = () => {
+    setError(null);
+  };
 
   return (
     <div className="relative flex max-w-64 justify-center mx-4 md: py-4">
@@ -75,11 +93,12 @@ export default function MarketPartial({
             {changePercentage}%
           </p>
         </div>
-        <Link to={`/market-overview/trade/${_id}`}
+        <Link
+          to={`/market-overview/trade/${_id}`}
+          onClick={handleClick}
           className="pt-6 inline-flex font-medium items-center text-primary-600 hover:underline"
         >
           See details
-        
           <svg
             className="w-3 h-3 ms-2.5 rtl:rotate-[270deg]"
             aria-hidden="true"
@@ -97,8 +116,11 @@ export default function MarketPartial({
           </svg>
         </Link>
       </div>
+      {error && (
+        <div className="z-50">
+          <ErrorToast error={error} handleCloseToast={handleCloseToast} />
+        </div>
+      )}
     </div>
   );
 }
-
-

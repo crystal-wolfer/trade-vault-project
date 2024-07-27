@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import * as cryptoAPI from "../../API/cryptoAPI.js";
 
@@ -11,6 +12,17 @@ export default function CoinDetails() {
   const [coinInfo, setCoinInfo] = useState([]);
   const [noCoin, setNoCoin] = useState(false);
   const [dataFetched, setDataFetched] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+
+  const checkKeyDown = (e) => {
+    if (e.key === "Enter") e.preventDefault();
+  };
 
   useEffect(() => {
     cryptoAPI.getCoinChartData(id).then((data) => {
@@ -44,8 +56,6 @@ export default function CoinDetails() {
     setAmount(value);
   };
 
-
-
   if (noCoin) {
     return (
       <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
@@ -72,6 +82,16 @@ export default function CoinDetails() {
     );
   }
 
+   const submitHandler = async ({price, amount}) => {
+    const modifiedData = {
+       amount,
+       price: (Number(coinInfo.priceUsd) * Number(amount)).toFixed(2),
+       id,
+       name: coinInfo.name,
+       symbol: coinInfo.symbol,
+    }
+    console.log(modifiedData);
+   }
   return (
     <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
       <div className="py-20 max-w-screen-xl px-4 mx-auto 2xl:px-0">
@@ -131,7 +151,7 @@ export default function CoinDetails() {
                 </span>
               )}
 
-              <button className="flex items-center bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300 mt-2 sm:mt-0 w-full sm:w-auto h-12 sm:h-auto">                
+              <button className="flex items-center bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300 mt-2 sm:mt-0 w-full sm:w-auto h-12 sm:h-auto">
                 <svg
                   className="mr-2"
                   xmlns="http://www.w3.org/2000/svg"
@@ -143,15 +163,15 @@ export default function CoinDetails() {
                   <path
                     d="M10 16H3"
                     stroke="#EAB308"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
                     fill="#EAB308"
                   />
                   <path
                     d="M9 11H3"
                     stroke="#EAB308"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
                     fill="#EAB308"
                   />
                   <path
@@ -161,18 +181,18 @@ export default function CoinDetails() {
                   <path
                     d="M20 6L9.5 6M3 6L5.25 6"
                     stroke="#EAB308"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
                   />
                 </svg>
-                  Add to waitlist
+                Add to waitlist
               </button>
             </div>
 
             <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 
             {/* Trade Form */}
-            <form action="#">
+            <form  onSubmit={handleSubmit(submitHandler)} onKeyDown={(e) => checkKeyDown(e)}>
               <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
                 <div className="w-full">
                   <label
@@ -182,9 +202,10 @@ export default function CoinDetails() {
                     You pay
                   </label>
                   <input
+                    {...register("price")}
                     type="text"
-                    name="payment"
-                    id="payment"
+                    name="price"
+                    id="price"
                     disabled
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     value={`$${(
@@ -202,6 +223,9 @@ export default function CoinDetails() {
                     You get {coinInfo.symbol}
                   </label>
                   <input
+                    {...register("amount", {
+                      required: "You must enter amount",
+                    })}
                     type="number"
                     name="amount"
                     id="amount"
@@ -210,6 +234,11 @@ export default function CoinDetails() {
                     value={amount}
                     onChange={amountChange}
                   />
+                  {errors.amount && (
+                    <p className="text-red-500 text-sm m-2">
+                      {errors.amount.message}
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="flex items-center space-x-4">
