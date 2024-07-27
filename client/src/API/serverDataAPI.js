@@ -1,6 +1,6 @@
 import * as requester from "./serverRequester.js"
 
-const BASE_URL = "http://localhost:3030/jsonstore/coins"
+const BASE_URL = "http://localhost:3030/data/coins"
 
 export const getAll = async () => {
   try {
@@ -13,4 +13,14 @@ export const getAll = async () => {
   }
 
 
+}
+
+export const create = async (data) => {
+  try {
+    const result = await requester.post(BASE_URL, data);
+    return result
+    
+  } catch (error) {
+    return error.message
+  }
 }

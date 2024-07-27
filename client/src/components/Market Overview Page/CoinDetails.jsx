@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import * as cryptoAPI from "../../API/cryptoAPI.js";
+import * as serverDataAPI from "../../API/serverDataAPI.js";
 
 import LineChart from "../partials/LineChart.jsx";
 
@@ -82,14 +83,18 @@ export default function CoinDetails() {
     );
   }
 
+  // Submit Handler - Create Order
    const submitHandler = async ({price, amount}) => {
     const modifiedData = {
        amount,
-       price: (Number(coinInfo.priceUsd) * Number(amount)).toFixed(2),
-       id,
+       paid: (Number(coinInfo.priceUsd) * Number(amount)).toFixed(2),
+       key: id,
        name: coinInfo.name,
        symbol: coinInfo.symbol,
     }
+
+    //const result = serverDataAPI.create(modifiedData);
+
     console.log(modifiedData);
    }
   return (

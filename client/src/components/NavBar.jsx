@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { AuthContext } from "../contexts/authContext.js";
+import { AuthContext } from "../contexts/authContext.jsx";
 import UserAvatar from "./partials/UserAvatar.jsx";
 
 

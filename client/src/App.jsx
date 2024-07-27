@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { AuthContextProvider } from "./contexts/authContext.jsx";
 
 import NavBar from "./components/NavBar.jsx";
 import Home from "./components/Home Page/Home.jsx";
@@ -13,26 +13,11 @@ import Login from "./components/Login Register Page/Login.jsx";
 import Register from "./components/Login Register Page/Register.jsx";
 import CoinDetails from "./components/Market Overview Page/CoinDetails.jsx";
 import NotFound from "./components/Static Pages/404.jsx";
-import { AuthContext } from "./contexts/authContext.js";
 
 function App() {
-  const [authState, setAuthState] = useState({});
-
-  const updateAuthState = (state) => {
-    setAuthState(state);
-  }
-
-  const contextData = {
-    email: authState.email,
-    accessToken: authState.accessToken,
-    firstName: authState.firstName,
-    userId: authState._id,
-    isAuth: !!authState.email, // TODO: update to check for ownerId
-    updateAuthState,
-  }
 
   return (
-    <AuthContext.Provider value={contextData}>
+    <AuthContextProvider>
       <div>
         <NavBar />
         <Routes>
@@ -47,7 +32,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
-    </AuthContext.Provider>
+    </AuthContextProvider>
   );
 }
 
