@@ -16,6 +16,28 @@ import NotFound from "./components/Static Pages/404.jsx";
 
 function App() {
 
+  const [authState, setAuthState] = useState({});
+
+  const updateAuthState = (state) => {
+    setAuthState(state);
+  }
+
+  const contextData = {
+    email: authState.email,
+    accessToken: authState.accessToken,
+    firstName: authState.firstName,
+    isAuth: !!authState.email, // TODO: update to check for ownerId
+    updateAuthState,
+  }
+
+   useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      updateAuthState(foundUser);
+    }
+  }, []);
+
   return (
     <AuthContextProvider>
       <div>

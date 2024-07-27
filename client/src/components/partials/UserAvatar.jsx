@@ -32,7 +32,7 @@ export default function UserAvatar({ userData }) {
             </div>
           </div>
 
-          <div class="py-1">
+          <div className="py-1">
             <Link
               to="/my-profile"
               className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
