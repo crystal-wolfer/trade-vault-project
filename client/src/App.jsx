@@ -26,6 +26,7 @@ function App() {
     email: authState.email,
     accessToken: authState.accessToken,
     firstName: authState.firstName,
+    userId: authState._id,
     isAuth: !!authState.email, // TODO: update to check for ownerId
     updateAuthState,
   }

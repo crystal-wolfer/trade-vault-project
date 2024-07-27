@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/authContext.js";
 
 import * as authAPI from "../../API/authAPI.js";
 
 import styles from "./Register.module.css";
 import PasswordIndicator from "./PasswordStrength.jsx";
 import ErrorToast from "../Toast Components/ErrorToast.jsx";
-import { AuthContext } from "../../contexts/authContext.js";
 
 export default function Register() {
   const {
@@ -37,8 +37,13 @@ export default function Register() {
       return;
     }
     
-    updateAuthState(result);
+    const {password, confirmPassword, ...userData} = result;
+    updateAuthState(userData);
     setRedirect(true);    
+  };
+
+  const handleCloseToast = () => {
+    setError(null);
   };
 
   return (
@@ -52,7 +57,17 @@ export default function Register() {
             <h2 className="py-2">Account Register</h2>
             <div className={styles.inputGroup}>
               <input
-                {...register("email", { required: "Email is required" })}
+                {...register("email", {
+                  required: "Email is required",
+                  validate: (value) => {
+                    const pattern =
+                      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!pattern.test(value)) {
+                      return "Email in not valid";
+                    }
+                    return true;
+                  },
+                })}
                 type="email"
                 placeholder="Email"
               />
@@ -138,11 +153,11 @@ export default function Register() {
         </div>
       </div>
 
-      {error !== null ? (
+      {error && (
         <div>
-          <ErrorToast error={error} />
+          <ErrorToast error={error} handleCloseToast = {handleCloseToast}/>
         </div>
-      ) : null}
+      )}
 
       {redirect && <Navigate to={"/"}  state={ {message: "Registration successful!"}}/>}
     </div>

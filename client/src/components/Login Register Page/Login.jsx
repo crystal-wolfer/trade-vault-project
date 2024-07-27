@@ -1,16 +1,41 @@
 import { useForm } from "react-hook-form";
+import { useContext, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/authContext.js";
 
+import * as authAPI from "../../API/authAPI.js";
+
+import ErrorToast from "../Toast Components/ErrorToast.jsx";
 import styles from "./Login.module.css";
 
 export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
-  const submitHandler = (data) => {
-    console.log(data);
+  const [error, setError] = useState(null);
+  const {updateAuthState} = useContext(AuthContext)
+  const [redirect, setRedirect] = useState(false);
+
+
+  const submitHandler = async (data) => {
+    const result = await authAPI.login(data);
+    console.log(result);
+
+    if (result.status === 403) {
+      setError(result.message);
+      return;
+    }
+
+    const {password, ...userData} = result;
+    updateAuthState(userData);
+    setRedirect(true);    
+  };
+
+  const handleCloseToast = () => {
+    setError(null);
   };
 
   return (
@@ -32,14 +57,6 @@ export default function Login() {
               <input
                 {...register("email", {
                   required: "Email is required",
-                  validate: (value) => {
-                    const pattern =
-                      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                    if (!pattern.test(value)) {
-                      return "Email in not valid";
-                    }
-                    return true;
-                  },
                 })}
                 type="text"
                 placeholder="Email"
@@ -55,38 +72,22 @@ export default function Login() {
               <input
                 {...register("password", {
                   required: "Password is required",
-                  validate: (value) => {
-                    const pattern =
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-                    if (!pattern.test(value)) {
-                      return `
-                        - At least 8 characters
-                        - 1 uppercase letter
-                        - 1 lowercase letter
-                        - 1 digit
-                        - 1 special character (@$!%*?&)`;
-                    }
-                    return true;
-                  },
                 })}
                 type="password"
                 placeholder="Password"
-                
               />
               {errors.password && (
                 <p className="text-red-500 text-sm m-2">
-                 Password must include:
-                  {errors.password.message.split("\n").map((line, index) => (
-                    <span className="text-red-400 text-xs ml-2" key={index}>
-                      {line}
-                      <br />
-                    </span>
-                  ))}
+                  {errors.email.password}
                 </p>
               )}
             </div>
-            <button type="submit" className={styles.button}>
-              Sign In
+            <button
+              type="submit"
+              className={styles.button}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Loading..." : "Sign In"}
             </button>
 
             <span className={styles.infoText}> Don't have an account yet?</span>
@@ -97,6 +98,14 @@ export default function Login() {
           </form>
         </div>
       </div>
+
+      {error && (
+        <div>
+          <ErrorToast error={error} handleCloseToast = {handleCloseToast}/>
+        </div>
+      )}
+
+      {redirect && <Navigate to={"/"}/>}
     </div>
   );
 }
