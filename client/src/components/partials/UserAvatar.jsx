@@ -17,7 +17,7 @@ export default function UserAvatar({ userData }) {
         data-dropdown-toggle="userDropdown"
         data-dropdown-placement="bottom-start"
         className="w-6 h-6 rounded-full cursor-pointer"
-        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        src="https://avatar.iran.liara.run/public"
         alt="User dropdown"
       />
 

@@ -17,7 +17,7 @@ export default function MyProfile() {
   return (
     <>
     <div className="flex items-center justify-center bg-gray-100 py-16">
-      <div className="main-content w-full max-w-screen-xl mx-auto p-4 bg-gray-100 py-8 pb-24 md:pb-5">
+      <div className="main-content w-full max-w-screen-xl mx-auto bg-gray-100 py-8 pb-24 md:pb-5">
         <div className="bg-primary-800 pt-3">
           <div className="bg-primary-600 p-4 shadow text-2xl text-white">
             <h3 className="font-bold pl-2">My Profile</h3>
