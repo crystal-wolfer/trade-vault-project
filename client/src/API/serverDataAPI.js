@@ -34,4 +34,12 @@ export const getMyCoins = async (ownerId) => {
   }
 };
 
-// "
+export const editCoin = async (coinId, data) => {
+    try {
+    const result = await requester.patch(`${BASE_URL}/${coinId}`, data);
+
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+}

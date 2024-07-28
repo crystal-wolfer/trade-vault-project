@@ -59,5 +59,5 @@ export default async function serverRequester(method, url, data) {
 
 export const get = serverRequester.bind(null, "GET");
 export const post = serverRequester.bind(null, "POST");
-export const put = serverRequester.bind(null, "PUT");
+export const patch = serverRequester.bind(null, "PATCH");
 export const del = serverRequester.bind(null, "DELETE");

@@ -1,6 +1,6 @@
 import useCoins from "../../hooks/useCoins.js";
 
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import timeStampTranform from "../../util/timeStampTransform.js";
 
 import EditOrderModal from "../partials/EditOrderModal.jsx";
@@ -9,13 +9,22 @@ import DeleteOrderModal from "../partials/DeleteOrderModal.jsx";
 function Table({coins}) {
   const [showEditModal, setShowEditModal] = useState(false);
 
-  const handleOpenEditModal = () => setShowEditModal(true);
-  const handleCloseEditModal = () => setShowEditModal(false);
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleOpenDeleteModal = () => setShowDeleteModal(true);
   const handleCloseDeleteModal = () => setShowDeleteModal(false);
+
+  const [selectedCoin, setSelectedCoin] = useState(null);
+ 
+  const handleOpenEditModal = (coin) => {
+    setSelectedCoin(coin);
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setSelectedCoin(null);
+    setShowEditModal(false);
+  };
 
   return (
     <>
@@ -150,7 +159,7 @@ function Table({coins}) {
                             <div className="flex items-center space-x-4">
                               <button
                                 type="button"
-                                onClick={handleOpenEditModal}
+                                onClick={() => handleOpenEditModal(coin)}
                                 data-drawer-target="drawer-update-product"
                                 data-drawer-show="drawer-update-product"
                                 aria-controls="drawer-update-product"
@@ -214,7 +223,7 @@ function Table({coins}) {
 
       {/* Edit Order Modal  */}
 
-      <EditOrderModal show={showEditModal} onClose={handleCloseEditModal} />
+      <EditOrderModal show={showEditModal} onClose={handleCloseEditModal} coin = {selectedCoin} />
 
       {/* Delete Modal */}
       <DeleteOrderModal
