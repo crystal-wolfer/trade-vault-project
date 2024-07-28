@@ -11,7 +11,7 @@ import SuccessToast from "../Toast Components/SuccessToast.jsx";
 // import ErrorToast from '../Toast Components/ErrorToast.jsx'
 
 export default function Home() {
-  const message = useMessage();
+  const [message, setMessage] = useMessage();
 
   return (
     <>

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
 import * as cryptoAPI from "../../API/cryptoAPI.js";
 import * as serverDataAPI from "../../API/serverDataAPI.js";
-
 import LineChart from "../partials/LineChart.jsx";
 import SuccessToast from "../Toast Components/SuccessToast.jsx";
 import useMessage from "../../hooks/useMessage.js";
@@ -12,11 +10,14 @@ import useMessage from "../../hooks/useMessage.js";
 export default function CoinDetails() {
   const { id } = useParams();
   const [data, setData] = useState([]);
-  const [coinInfo, setCoinInfo] = useState([]);
+  const [coinInfo, setCoinInfo] = useState({});
   const [noCoin, setNoCoin] = useState(false);
   const [dataFetched, setDataFetched] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useMessage();
+  const [arrow, setArrow] = useState(true);
+  const [amount, setAmount] = useState(1);
+  const [error, setError] = useState(null);
 
   const {
     register,
@@ -24,77 +25,49 @@ export default function CoinDetails() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const checkKeyDown = (e) => {
-    if (e.key === "Enter") e.preventDefault();
-  };
-
+  // Ensuring hook order is consistent
   useEffect(() => {
     cryptoAPI.getCoinChartData(id).then((data) => {
       setData(data);
       setDataFetched(true);
     });
-  }, [setData]);
+  }, [id]); // Ensure id is included
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await cryptoAPI.getCoinInfo(id);
-
-        if (data === undefined || data === false) {
+        if (!data) {
           setNoCoin(true);
         } else {
           setCoinInfo(data);
         }
       } catch (error) {
         console.error(error);
-        setNoCoin(true); // Treat any error as an indicator that the coin does not exist
+        setNoCoin(true);
       }
     };
 
     fetchData();
-  }, [id]);
-
-  const [arrow, setArrow] = useState(true);
+  }, [id]); // Ensure id is included
 
   useEffect(() => {
-    if (Number(coinInfo.changePercent24Hr) < 0) {
+    if (coinInfo.changePercent24Hr < 0) {
       setArrow(false);
     }
-  }, [Number(coinInfo.changePercent24Hr)]);
+  }, [coinInfo.changePercent24Hr]);
 
-  const [amount, setAmount] = useState(1);
+  useEffect(() => {
+    if (success) {
+      setMessage("Order submitted!");
+      setSuccess(false);
+    }
+  }, [success, setMessage]);
 
   const amountChange = (event) => {
     const value = event.target.value;
     setAmount(value);
   };
-
-  if (noCoin) {
-    return (
-      <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-          <div class="mx-auto max-w-screen-sm text-center">
-            <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-6xl text-primary-600 dark:text-primary-500">
-              Coin not found!
-            </h1>
-            <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-xl dark:text-white">
-              Looks like you stumbled upon an issue...
-            </p>
-            <p class="mb-4 text-base font-light text-gray-500 dark:text-gray-400">
-              In the meantime you can go back to the{" "}
-              <a
-                href="/market-overview"
-                className="underline underline-offset-4 block py-2 px-3 md:p-0 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:text-primary-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Market Overview
-              </a>
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-  const [error, setError] = useState(null);
 
   const handleCloseToast = () => {
     setError(null);
@@ -110,20 +83,42 @@ export default function CoinDetails() {
       symbol: coinInfo.symbol,
     };
 
-    const result = await serverDataAPI.create(modifiedData);
-
-    setSuccess(true);
+    try {
+      const result = await serverDataAPI.create(modifiedData);
+      setSuccess(true);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
-  // Show toast messages based on success state
-  useEffect(() => {
-    if (success) {
-      setMessage("Order sumitted!");
-      setSuccess(false);
-    }
-  }, [success, setMessage]);
+  // Rendering section
+  if (noCoin) {
+    return (
+      <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
+        <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+          <div className="mx-auto max-w-screen-sm text-center">
+            <h1 className="mb-4 text-7xl tracking-tight font-extrabold lg:text-6xl text-primary-600 dark:text-primary-500">
+              Coin not found!
+            </h1>
+            <p className="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-xl dark:text-white">
+              Looks like you stumbled upon an issue...
+            </p>
+            <p className="mb-4 text-base font-light text-gray-500 dark:text-gray-400">
+              In the meantime you can go back to the{" "}
+              <a
+                href="/market-overview"
+                className="underline underline-offset-4 block py-2 px-3 md:p-0 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:text-primary-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Market Overview
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
-  return (
+ return (
     <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
       <div className="py-20 max-w-screen-xl px-4 mx-auto 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
