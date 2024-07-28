@@ -49,11 +49,12 @@ export default async function serverRequester(method, url, data) {
 
     return result;
   } catch (error) {
-    console.error(
-      "There was a problem with the fetch operation:",
-      error.message
-    );
-    throw error.message;
+    console.log(error);
+
+    return {
+      status: response.status,
+      message: "Something went wrong",
+    };
   }
 }
 

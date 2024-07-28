@@ -22,8 +22,6 @@ export default function Login() {
 
   const submitHandler = async (data) => {
     const result = await authAPI.login(data);
-    console.log(result);
-
 
     if (result.status === 403) {
       setError(result.message);

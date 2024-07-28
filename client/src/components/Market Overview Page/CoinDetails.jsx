@@ -38,14 +38,24 @@ export default function CoinDetails() {
   }, [setData]);
 
   useEffect(() => {
-    cryptoAPI.getCoinInfo(id).then((data) => {
-      if (data === undefined) {
+    const fetchData = async () => {
+    try {
+      const data = await cryptoAPI.getCoinInfo(id);
+      console.log(`This is DATA: ${data}`);
+
+      if (data === undefined || data === false) {
         setNoCoin(true);
-        return;
+      } else {
+        setCoinInfo(data);
       }
-      setCoinInfo(data);
-    });
-  }, [setCoinInfo]);
+    } catch (error) {
+      console.error(error);
+      setNoCoin(true); // Treat any error as an indicator that the coin does not exist
+    }
+  };
+
+  fetchData();
+  }, [id]);
 
   const [arrow, setArrow] = useState(true);
 
@@ -87,6 +97,11 @@ export default function CoinDetails() {
       </section>
     );
   }
+  const [error, setError] = useState(null);
+
+  const handleCloseToast = () => {
+    setError(null);
+  };
 
   // Submit Handler - Create Order
   const submitOrderHandler = async ({ price, amount }) => {
@@ -260,6 +275,7 @@ export default function CoinDetails() {
                 <button
                   type="submit"
                   className="text-white inline-flex items-center bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium border-solid border-2 border-primary-800 rounded text-sm px-12 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  disabled={isSubmitting}
                 >
                   <svg
                     className="w-5 h-5 -ms-2 me-2"
@@ -277,7 +293,7 @@ export default function CoinDetails() {
                       d="M8.737 8.737a21.49 21.49 0 0 1 3.308-2.724m0 0c3.063-2.026 5.99-2.641 7.331-1.3 1.827 1.828.026 6.591-4.023 10.64-4.049 4.049-8.812 5.85-10.64 4.023-1.33-1.33-.736-4.218 1.249-7.253m6.083-6.11c-3.063-2.026-5.99-2.641-7.331-1.3-1.827 1.828-.026 6.591 4.023 10.64m3.308-9.34a21.497 21.497 0 0 1 3.308 2.724m2.775 3.386c1.985 3.035 2.579 5.923 1.248 7.253-1.336 1.337-4.245.732-7.295-1.275M14 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"
                     />
                   </svg>
-                  Place Order
+                  {isSubmitting ? "Loading..." : "Place Order"}
                 </button>
               </div>
             </form>
@@ -286,6 +302,12 @@ export default function CoinDetails() {
       </div>
 
       {success && <SuccessToast message={message} />}
+
+      {error && (
+        <div>
+          <ErrorToast error={error} handleCloseToast={handleCloseToast} />
+        </div>
+      )}
     </section>
   );
 }

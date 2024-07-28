@@ -4,8 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/authContext.js";
 import * as authAPI from "../../API/authAPI.js";
 
-
-
 export default function UserAvatar({ userData }) {
   const [showInfo, setShowInfo] = useState(false);
 
@@ -13,15 +11,14 @@ export default function UserAvatar({ userData }) {
     setShowInfo(!showInfo);
   };
 
-  const {updateAuthState} = useContext(AuthContext)
+  const { updateAuthState } = useContext(AuthContext);
   const navigate = useNavigate();
 
-
-  const logoutHandler = async() => {
+  const logoutHandler = async () => {
     const logout = await authAPI.logout();
-    updateAuthState({})
+    updateAuthState({});
     localStorage.clear();
-    navigate('/')
+    navigate("/");
   };
 
   return (
@@ -40,12 +37,10 @@ export default function UserAvatar({ userData }) {
       {showInfo && (
         <div
           id="userDropdown"
-          className="z-10 absolute left-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+          className="z-10 absolute left-1/2 transform -translate-x-1/2 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600 sm:left-0 sm:transform-none sm:w-60"
         >
-          <div className="px-4 py-3 text-sm text-gray-400 dark:text-white">
-            <div>
-              {userData.firstName} {userData.email}
-            </div>
+          <div className="px-4 py-3 text-sm text-gray-500 dark:text-white">
+            <div>Welcome back, {userData.firstName}!</div>
           </div>
 
           <div className="py-1">
@@ -54,7 +49,7 @@ export default function UserAvatar({ userData }) {
               className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               onClick={infoHandler}
             >
-               My Profile
+              My Profile
             </Link>
           </div>
 

@@ -56,13 +56,26 @@ export const getCoinInfo = async(id) => {
   };
 
   try {
-    console.log(url);
+    console.log(`Fetching data from: ${url}`);
     const response = await fetch(url, options);
-    const result = await response.json();
-    return result.data
 
+    if (!response.ok) {
+      console.error(`Error: Received status code ${response.status}`);
+      console.log(response);
+      return response.ok;
+    }
+
+    const result = await response.json();
+
+    if (!result.data) {
+      console.error('Error: Data is undefined or null');
+      throw new Error('Data is undefined or null');
+    }
+
+    return result.data;
   } catch (error) {
-	  console.error(error);
+    console.error('Error fetching coin info:', error);
+    throw new Error('An error occurred while fetching coin information');
   }
 };
 
