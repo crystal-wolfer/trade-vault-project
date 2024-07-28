@@ -1,35 +1,12 @@
 import useCoins from "../../hooks/useCoins.js";
 
 import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../contexts/authContext.js";
 import timeStampTranform from "../../util/timeStampTransform.js";
-import * as serverDataAPI from "../../API/serverDataAPI.js";
 
 import EditOrderModal from "../partials/EditOrderModal.jsx";
 import DeleteOrderModal from "../partials/DeleteOrderModal.jsx";
 
-function Table() {
-  const { _id } = useContext(AuthContext);
-  const [coins, setCoins] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await serverDataAPI.getMyCoins(_id)
-        if (!data) {
-          setCoins(null);
-        } else {
-          setCoins(data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, [_id]);
-
-
+function Table({coins}) {
   const [showEditModal, setShowEditModal] = useState(false);
 
   const handleOpenEditModal = () => setShowEditModal(true);

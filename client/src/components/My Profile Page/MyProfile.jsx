@@ -32,8 +32,7 @@ export default function MyProfile() {
     };
 
     fetchData();
-  }, [_id]);
-  
+  }, [_id]);  
 
   return (
     <>
@@ -192,7 +191,7 @@ export default function MyProfile() {
         <div className="mt-8 p-4 bg-white rounded-lg shadow-xl">
           {activeCard === "revenue" && 
             <div>
-              <Table />
+              <Table key= {coins.length} coins = {coins}/>
             </div>}
           {activeCard === "wishList" && (
             <div className="flex w-full max-w-screen-xl mx-auto items-center justify-center">

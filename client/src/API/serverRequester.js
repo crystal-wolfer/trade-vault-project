@@ -41,7 +41,6 @@ export default async function serverRequester(method, url, data) {
     }
 
     if (response.status === 204) {
-      console.log("204 error");
       return;
     }
 
