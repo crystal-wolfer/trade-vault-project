@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useToastTimer = (initialTime = 2) => {
+const useToastTimer = (initialTime) => {
   const [showToast, setShowToast] = useState(true);
   const [timeLeft, setTimeLeft] = useState(initialTime);
 

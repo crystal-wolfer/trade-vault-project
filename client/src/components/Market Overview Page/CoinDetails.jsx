@@ -9,9 +9,6 @@ import LineChart from "../partials/LineChart.jsx";
 import SuccessToast from "../Toast Components/SuccessToast.jsx";
 import useMessage from "../../hooks/useMessage.js";
 
-
-
-
 export default function CoinDetails() {
   const { id } = useParams();
   const [data, setData] = useState([]);
@@ -26,9 +23,8 @@ export default function CoinDetails() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const text = "Order Placed!"
+  const text = "Order Placed!";
   const message = useMessage(text);
-
 
   const checkKeyDown = (e) => {
     if (e.key === "Enter") e.preventDefault();
@@ -66,7 +62,6 @@ export default function CoinDetails() {
     setAmount(value);
   };
 
-
   if (noCoin) {
     return (
       <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
@@ -93,22 +88,22 @@ export default function CoinDetails() {
     );
   }
 
-  // Call the useMessage hook at the top level of the component
-  const getMessage = useMessage;
-
   // Submit Handler - Create Order
-   const submitHandler = async ({price, amount}) => {
+  const submitOrderHandler = async ({ price, amount }) => {
     const modifiedData = {
-       amount,
-       paid: (Number(coinInfo.priceUsd) * Number(amount)).toFixed(2),
-       key: id,
-       name: coinInfo.name,
-       symbol: coinInfo.symbol,
-    }
+      amount,
+      paid: (Number(coinInfo.priceUsd) * Number(amount)).toFixed(2),
+      key: id,
+      name: coinInfo.name,
+      symbol: coinInfo.symbol,
+    };
 
     const result = await serverDataAPI.create(modifiedData);
+
+    // Call the useMessage hook at the top level of the component
+    const getMessage = useMessage;
     setSuccess(true);
-   }
+  };
   return (
     <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
       <div className="py-20 max-w-screen-xl px-4 mx-auto 2xl:px-0">
@@ -209,7 +204,10 @@ export default function CoinDetails() {
             <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 
             {/* Trade Form */}
-            <form  onSubmit={handleSubmit(submitHandler)} onKeyDown={(e) => checkKeyDown(e)}>
+            <form
+              onSubmit={handleSubmit(submitOrderHandler)}
+              onKeyDown={(e) => checkKeyDown(e)}
+            >
               <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
                 <div className="w-full">
                   <label

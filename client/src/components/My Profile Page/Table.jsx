@@ -1,11 +1,11 @@
-import  useCoins  from "../../hooks/useCoins.js"
+import useCoins from "../../hooks/useCoins.js";
 
 import { useState } from "react";
+import timeStampTranform from "../../util/timeStampTransform.js";
 
 import EditOrderModal from "../partials/EditOrderModal.jsx";
 import DeleteOrderModal from "../partials/DeleteOrderModal.jsx";
 import ErrorToast from "../Toast Components/ErrorToast.jsx";
-
 
 function Table() {
   const { coins, error } = useCoins([]);
@@ -19,6 +19,7 @@ function Table() {
 
   const handleOpenDeleteModal = () => setShowDeleteModal(true);
   const handleCloseDeleteModal = () => setShowDeleteModal(false);
+
   return (
     <>
       {/* Start block */}
@@ -100,6 +101,9 @@ function Table() {
                         Amount
                       </th>
                       <th scope="col" className="p-4">
+                        Order placed on
+                      </th>
+                      <th scope="col" className="p-4">
                         Notes
                       </th>
                       <th scope="col" className="p-4">
@@ -111,7 +115,10 @@ function Table() {
                     {/* Row with data*/}
                     {coins.map((coin) => {
                       return (
-                        <tr key={coin._id} className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <tr
+                          key={coin._id}
+                          className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
                           <th
                             scope="row"
                             className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -132,6 +139,10 @@ function Table() {
                           </td>
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {coin.amount}
+                          </td>
+
+                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {timeStampTranform(coin._createdOn)}
                           </td>
 
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -215,8 +226,7 @@ function Table() {
       />
 
       {/* Error Modal */}
-      {error !== "" ? (<ErrorToast error={error}/>) : null}
-      
+      {error !== "" ? <ErrorToast error={error} /> : null}
     </>
   );
 }
