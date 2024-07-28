@@ -26,7 +26,8 @@ function App() {
     email: authState.email,
     accessToken: authState.accessToken,
     firstName: authState.firstName,
-    isAuth: !!authState.email, 
+    isAuth: !!authState.email,
+    _id: authState._id,
     updateAuthState,
   }
 

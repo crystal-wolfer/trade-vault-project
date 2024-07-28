@@ -1,5 +1,7 @@
-import { useState } from "react";
-import  useCoins  from "../../hooks/useCoins.js"
+import { useState, useEffect, useContext } from "react";
+import * as serverDataAPI from "../../API/serverDataAPI.js";
+import { AuthContext } from "../../contexts/authContext.js";
+
 
 import Table from "./Table.jsx";
 import WishlistCard from "../partials/WishListCard.jsx";
@@ -7,12 +9,31 @@ import WishlistCard from "../partials/WishListCard.jsx";
 
 export default function MyProfile() {
   const [activeCard, setActiveCard] = useState("");
+  const { _id } = useContext(AuthContext);
 
   const handleCardClick = (card) => {
     setActiveCard(card);
   };
 
-  const { coins, error } = useCoins();
+  const [coins, setCoins] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await serverDataAPI.getMyCoins(_id)
+        if (!data) {
+          setCoins(null);
+        } else {
+          setCoins(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [_id]);
+  
 
   return (
     <>
