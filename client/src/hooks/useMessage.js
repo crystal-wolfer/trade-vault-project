@@ -14,13 +14,13 @@ const useMessage = (input) => {
     if (message) {
       const timer = setTimeout(() => {
         setMessage('');
-      }, 5500); 
+      }, 3000); 
 
       return () => clearTimeout(timer);
     }
   }, [message, location, navigate]);
 
-  return message;
+  return [message, setMessage];
 };
 
 export default useMessage;

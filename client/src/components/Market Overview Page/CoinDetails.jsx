@@ -16,15 +16,13 @@ export default function CoinDetails() {
   const [noCoin, setNoCoin] = useState(false);
   const [dataFetched, setDataFetched] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useMessage();
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
-
-  const text = "Order Placed!";
-  const message = useMessage(text);
 
   const checkKeyDown = (e) => {
     if (e.key === "Enter") e.preventDefault();
@@ -39,22 +37,21 @@ export default function CoinDetails() {
 
   useEffect(() => {
     const fetchData = async () => {
-    try {
-      const data = await cryptoAPI.getCoinInfo(id);
-      console.log(`This is DATA: ${data}`);
+      try {
+        const data = await cryptoAPI.getCoinInfo(id);
 
-      if (data === undefined || data === false) {
-        setNoCoin(true);
-      } else {
-        setCoinInfo(data);
+        if (data === undefined || data === false) {
+          setNoCoin(true);
+        } else {
+          setCoinInfo(data);
+        }
+      } catch (error) {
+        console.error(error);
+        setNoCoin(true); // Treat any error as an indicator that the coin does not exist
       }
-    } catch (error) {
-      console.error(error);
-      setNoCoin(true); // Treat any error as an indicator that the coin does not exist
-    }
-  };
+    };
 
-  fetchData();
+    fetchData();
   }, [id]);
 
   const [arrow, setArrow] = useState(true);
@@ -115,10 +112,17 @@ export default function CoinDetails() {
 
     const result = await serverDataAPI.create(modifiedData);
 
-    // Call the useMessage hook at the top level of the component
-    const getMessage = useMessage;
     setSuccess(true);
   };
+
+  // Show toast messages based on success state
+  useEffect(() => {
+    if (success) {
+      setMessage("Order sumitted!");
+      setSuccess(false);
+    }
+  }, [success, setMessage]);
+
   return (
     <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
       <div className="py-20 max-w-screen-xl px-4 mx-auto 2xl:px-0">
@@ -301,7 +305,7 @@ export default function CoinDetails() {
         </div>
       </div>
 
-      {success && <SuccessToast message={message} />}
+      {message && <SuccessToast message={message} />}
 
       {error && (
         <div>
