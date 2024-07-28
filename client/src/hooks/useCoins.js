@@ -8,7 +8,7 @@ const useCoins = () => {
   useEffect(() => {
     const fetchCoins = async () => {
       try {
-        const result = await serverDataAPI.getAll(); 
+        const result = await serverDataAPI.getAll();
         setCoins(result);
       } catch (err) {
         setError(err.message);

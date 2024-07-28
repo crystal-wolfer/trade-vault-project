@@ -20,6 +20,8 @@ function Table() {
   const handleOpenDeleteModal = () => setShowDeleteModal(true);
   const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
+  console.log(coins);
+
   return (
     <>
       {/* Start block */}
