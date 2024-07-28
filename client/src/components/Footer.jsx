@@ -6,8 +6,7 @@ export default function Footer() {
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
               <a href="/" className="flex items-center">
-                  <img src="/Logo.png" className="h-8 me-3" alt="FlowBite Logo" />
-                  <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">TradeVault</span>
+                  <img src="/Logo.png" className="h-12 me-3" alt="FlowBite Logo" />
               </a>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
