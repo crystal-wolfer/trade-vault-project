@@ -1,5 +1,30 @@
+import { useState, useEffect } from "react";
+import * as cryptoAPI from "../../API/cryptoAPI.js";
+
 function EditOrderModal({ show, onClose, coin }) {
   if (!show) return null;
+  const [amount, setAmount] = useState(coin.amount);
+  const [price, setPrice] = useState("");
+  const id = coin.key;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await cryptoAPI.getCoinInfo(id);
+        const number = Number(data.priceUsd).toFixed(2);
+        setPrice(number);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const amountChange = (event) => {
+    const value = event.target.value;
+    setAmount(value);
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -50,7 +75,6 @@ function EditOrderModal({ show, onClose, coin }) {
                   disabled
                   value={coin.name}
                 />
-
               </div>
 
               <div>
@@ -66,6 +90,7 @@ function EditOrderModal({ show, onClose, coin }) {
                   id="price"
                   className="bg-gray-100 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder={coin.amount}
+                  onChange={amountChange}
                 />
               </div>
 
@@ -76,13 +101,15 @@ function EditOrderModal({ show, onClose, coin }) {
                 >
                   Estimated Price
                 </label>
-                <label
+                <input
                   id="estimatedPrice"
-                  type= "text"
+                  type="text"
+                  disabled
                   rows={4}
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border border-gray-400 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                > Estimated Price here 
-                </label> 
+                  value={`$${(Number(price)*Number(amount)).toFixed(2)}`}
+                />
+                
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -92,7 +119,7 @@ function EditOrderModal({ show, onClose, coin }) {
               >
                 Update Order
               </button>
-              
+
               <button
                 type="button"
                 onClick={onClose}

@@ -29,7 +29,7 @@ export default async function serverRequester(method, url, data) {
     if (response.status === 409) {
       return {
         status: 409,
-        message: "Тhis email already exists",
+        message: "This email already exists",
       };
     }
 

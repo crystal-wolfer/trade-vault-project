@@ -56,7 +56,6 @@ export const getCoinInfo = async(id) => {
   };
 
   try {
-    console.log(`Fetching data from: ${url}`);
     const response = await fetch(url, options);
 
     if (!response.ok) {

@@ -25,13 +25,12 @@ export default function CoinDetails() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  // Ensuring hook order is consistent
   useEffect(() => {
     cryptoAPI.getCoinChartData(id).then((data) => {
       setData(data);
       setDataFetched(true);
     });
-  }, [id]); // Ensure id is included
+  }, [id]); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +48,7 @@ export default function CoinDetails() {
     };
 
     fetchData();
-  }, [id]); // Ensure id is included
+  }, [id]); 
 
   useEffect(() => {
     if (coinInfo.changePercent24Hr < 0) {
