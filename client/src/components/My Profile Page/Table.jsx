@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import timeStampTranform from "../../util/timeStampTransform.js";
 
 import EditOrderModal from "../partials/EditOrderModal.jsx";
@@ -110,6 +110,9 @@ function Table({ coins, refreshCoins }) {
                         Order placed on
                       </th>
                       <th scope="col" className="p-4">
+                        Order updated on
+                      </th>
+                      <th scope="col" className="p-4">
                         Notes
                       </th>
                       <th scope="col" className="p-4">
@@ -149,6 +152,10 @@ function Table({ coins, refreshCoins }) {
 
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {timeStampTranform(coin._createdOn)}
+                          </td>
+
+                          <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {coin._updatedOn && timeStampTranform(coin._updatedOn)}
                           </td>
 
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
