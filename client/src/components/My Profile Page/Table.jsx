@@ -152,7 +152,7 @@ function Table({coins}) {
                           </td>
 
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {coin.notes}
+                            {coin.note}
                           </td>
 
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
