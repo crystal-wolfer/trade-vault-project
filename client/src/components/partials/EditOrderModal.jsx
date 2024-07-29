@@ -108,8 +108,22 @@ function EditOrderModal({ show, onClose, coin }) {
                   rows={4}
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border border-gray-400 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   value={`$${(Number(price)*Number(amount)).toFixed(2)}`}
-                />
-                
+                />          
+              </div>
+
+                            <div className="sm:col-span-2">
+                <label
+                  htmlFor="description"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Trader's notes
+                </label>
+                <input
+                  id="estimatedPrice"
+                  type="text"
+                  rows={4}
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border border-gray-400 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                />          
               </div>
             </div>
             <div className="flex items-center space-x-4">
