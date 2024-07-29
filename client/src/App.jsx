@@ -14,6 +14,10 @@ import Login from "./components/Login Register Page/Login.jsx";
 import Register from "./components/Login Register Page/Register.jsx";
 import CoinDetails from "./components/Market Overview Page/CoinDetails.jsx";
 import NotFound from "./components/Static Pages/404.jsx";
+import AuthGuard from "./util/AuthGuard.jsx";
+import GuestGuard from "./util/GuestGuard.jsx";
+
+
 
 function App() {
   const [authState, setAuthState] = useState({});
@@ -47,10 +51,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/market-overview" element={<MarketOverview />} />
           <Route path="/about-us" element={<About />} />
-          <Route path="/my-profile" element={<MyProfile />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/market-overview/trade/:id" element={<CoinDetails />} />
+          <Route path="/my-profile" element={<AuthGuard> <MyProfile /> </AuthGuard>} />
+          <Route path="/login" element={<GuestGuard> <Login /> </GuestGuard>} />
+          <Route path="/register" element={<GuestGuard> <Register /> </GuestGuard>} />
+          <Route path="/market-overview/trade/:id" element={<AuthGuard> <CoinDetails /> </AuthGuard> } />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
