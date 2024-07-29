@@ -22,7 +22,6 @@ function Table({ coins, refreshCoins }) {
   };
 
   const handleOpenDeleteModal = (coin) => {
-    console.log(coin);
     setSelectedCoin(coin);
     setShowDeleteModal(true);
   };
