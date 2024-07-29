@@ -30,7 +30,7 @@ export default function CoinDetails() {
       setData(data);
       setDataFetched(true);
     });
-  }, [id]); 
+  }, [id]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +48,7 @@ export default function CoinDetails() {
     };
 
     fetchData();
-  }, [id]); 
+  }, [id]);
 
   useEffect(() => {
     if (coinInfo.changePercent24Hr < 0) {
@@ -70,6 +70,10 @@ export default function CoinDetails() {
 
   const handleCloseToast = () => {
     setError(null);
+  };
+
+  const checkKeyDown = (e) => {
+    if (e.key === "Enter") e.preventDefault();
   };
 
   // Submit Handler - Create Order
@@ -117,7 +121,7 @@ export default function CoinDetails() {
     );
   }
 
- return (
+  return (
     <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
       <div className="py-20 max-w-screen-xl px-4 mx-auto 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
