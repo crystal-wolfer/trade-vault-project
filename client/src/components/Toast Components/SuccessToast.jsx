@@ -1,7 +1,9 @@
 import useToastTimer from "../../hooks/useToastTimer.js";
 
 export default function SuccessToast({message}) {
-  const { showToast, timeLeft, handleClose } = useToastTimer(1); 
+  const { showToast, timeLeft, handleClose } = useToastTimer(1);
+
+   if (!message) return null; 
 
   return (
     <div>

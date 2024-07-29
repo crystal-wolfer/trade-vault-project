@@ -17,8 +17,8 @@ export default function MyProfile() {
 
   const [coins, setCoins] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
+ 
+    const fetchCoins = async () => {
       try {
         const data = await serverDataAPI.getMyCoins(_id)
         if (!data) {
@@ -31,8 +31,8 @@ export default function MyProfile() {
       }
     };
 
-    fetchData();
-  }, [_id]);  
+    fetchCoins();
+  
 
   return (
     <>
@@ -191,7 +191,7 @@ export default function MyProfile() {
         <div className="mt-8 p-4 bg-white rounded-lg shadow-xl">
           {activeCard === "revenue" && 
             <div>
-              <Table key= {coins.length} coins = {coins}/>
+              <Table key= {coins.length} coins = {coins} refreshCoins={fetchCoins}/>
             </div>}
           {activeCard === "wishList" && (
             <div className="flex w-full max-w-screen-xl mx-auto items-center justify-center">
