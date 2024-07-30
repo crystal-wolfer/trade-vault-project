@@ -54,7 +54,7 @@ function App() {
           <Route path="/my-profile" element={<AuthGuard> <MyProfile /> </AuthGuard>} />
           <Route path="/login" element={<GuestGuard> <Login /> </GuestGuard>} />
           <Route path="/register" element={<GuestGuard> <Register /> </GuestGuard>} />
-          <Route path="/market-overview/trade/:id" element={<AuthGuard> <CoinDetails /> </AuthGuard> } />
+          <Route path="/market-overview/trade/:id" element={<AuthGuard> <CoinDetails /> </AuthGuard>  } />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

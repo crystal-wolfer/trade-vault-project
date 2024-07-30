@@ -1,11 +1,10 @@
 import { Navigate } from "react-router-dom"
-import { AuthContext } from "../contexts/authContext.js"
-import { useContext } from "react"
 
 export default function GuestGuard(props){
-    const {isAuth} = useContext(AuthContext)
+    const loggedInUser = localStorage.getItem("user");
 
-    if(isAuth){
+
+    if(loggedInUser){
         console.log('redirecting auth');
         return <Navigate to = "/"></Navigate>
     }
