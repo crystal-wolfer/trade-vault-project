@@ -1,14 +1,14 @@
 import { useState } from "react";
 import timeStampTranform from "../../util/timeStampTransform.js";
+import * as serverDataAPI from "../../API/serverDataAPI.js";
+
 
 import EditOrderModal from "../partials/EditOrderModal.jsx";
 import DeleteOrderModal from "../partials/DeleteOrderModal.jsx";
 
-function Table({ coins, refreshCoins }) {
+function Table({ coins, refreshCoins, ownerId, setCoins }) {
   const [showEditModal, setShowEditModal] = useState(false);
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
   const [selectedCoin, setSelectedCoin] = useState(null);
 
   const handleOpenEditModal = (coin) => {
@@ -30,6 +30,7 @@ function Table({ coins, refreshCoins }) {
     setShowDeleteModal(false);
   };
 
+  
   return (
     <>
       {/* Start block */}
@@ -241,6 +242,7 @@ function Table({ coins, refreshCoins }) {
         show={showEditModal}
         onClose={handleCloseEditModal}
         coin={selectedCoin}
+        ownerId={ownerId}
       />
 
       {/* Delete Modal */}

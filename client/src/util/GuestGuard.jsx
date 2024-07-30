@@ -6,6 +6,7 @@ export default function GuestGuard(props){
     const {isAuth} = useContext(AuthContext)
 
     if(isAuth){
+        console.log('redirecting auth');
         return <Navigate to = "/"></Navigate>
     }
 

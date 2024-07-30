@@ -6,6 +6,7 @@ export default function AuthGuard(props){
     const {isAuth} = useContext(AuthContext)
 
     if(!isAuth){
+        console.log('redirecting not auth');
         return <Navigate to = "/login"></Navigate>
     }
 
