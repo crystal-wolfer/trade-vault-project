@@ -1,11 +1,12 @@
 import * as serverDataAPI from "../../API/serverDataAPI.js";
 
-function DeleteOrderModal({ show, onClose, coin }) {
+function DeleteOrderModal({ show, onClose, coin, fetchCoins }) {
   if (!show) return null;
 
   const deleteOrderHandler = async () => {
     try {
-      const response = await serverDataAPI.deleteCoin(coin._id); 
+      const response = await serverDataAPI.deleteCoin(coin._id);
+      await fetchCoins();
 
       onClose(); 
     } catch (err) {

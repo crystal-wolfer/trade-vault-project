@@ -1,15 +1,14 @@
 import { useState } from "react";
 import timeStampTranform from "../../util/timeStampTransform.js";
-import * as serverDataAPI from "../../API/serverDataAPI.js";
-
 
 import EditOrderModal from "../partials/EditOrderModal.jsx";
 import DeleteOrderModal from "../partials/DeleteOrderModal.jsx";
 
-function Table({ coins, refreshCoins, ownerId, setCoins }) {
+function Table({ coins, ownerId, fetchCoins}) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState(null);
+
 
   const handleOpenEditModal = (coin) => {
     setSelectedCoin(coin);
@@ -19,6 +18,7 @@ function Table({ coins, refreshCoins, ownerId, setCoins }) {
   const handleCloseEditModal = () => {
     setSelectedCoin(null);
     setShowEditModal(false);
+    fetchCoins();
   };
 
   const handleOpenDeleteModal = (coin) => {
@@ -30,7 +30,7 @@ function Table({ coins, refreshCoins, ownerId, setCoins }) {
     setShowDeleteModal(false);
   };
 
-  
+   
   return (
     <>
       {/* Start block */}
@@ -75,7 +75,7 @@ function Table({ coins, refreshCoins, ownerId, setCoins }) {
                   <button
                     type="button"
                     id="refreshCoins"
-                    onClick={refreshCoins}
+                    onClick={() => fetchCoins()}
                     className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
                   >
                     <svg
@@ -88,9 +88,9 @@ function Table({ coins, refreshCoins, ownerId, setCoins }) {
                       <path
                         d="M21 12C21 16.9706 16.9706 21 12 21C9.69494 21 7.59227 20.1334 6 18.7083L3 16M3 12C3 7.02944 7.02944 3 12 3C14.3051 3 16.4077 3.86656 18 5.29168L21 8M3 21V16M3 16H8M21 3V8M21 8H16"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                     Refresh Table
@@ -242,7 +242,7 @@ function Table({ coins, refreshCoins, ownerId, setCoins }) {
         show={showEditModal}
         onClose={handleCloseEditModal}
         coin={selectedCoin}
-        ownerId={ownerId}
+        fetchCoins={fetchCoins}
       />
 
       {/* Delete Modal */}
@@ -250,6 +250,7 @@ function Table({ coins, refreshCoins, ownerId, setCoins }) {
         show={showDeleteModal}
         onClose={handleCloseDeleteModal}
         coin={selectedCoin}
+        fetchCoins={fetchCoins}
       />
     </>
   );

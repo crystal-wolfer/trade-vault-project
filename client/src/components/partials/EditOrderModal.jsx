@@ -5,7 +5,8 @@ import * as serverDataAPI from "../../API/serverDataAPI.js";
 import SuccessToast from "../Toast Components/SuccessToast.jsx";
 import useMessage from "../../hooks/useMessage.js";
 
-function EditOrderModal({ show, onClose, coin, ownerId }) {
+
+function EditOrderModal({ show, onClose, coin, fetchCoins }) {
   if (!show) return null;
   const [amount, setAmount] = useState(coin.amount);
   const [note, setNote] = useState(coin.note);
@@ -54,15 +55,18 @@ function EditOrderModal({ show, onClose, coin, ownerId }) {
     };
 
     try {
-      const result = await serverDataAPI.editCoin(serverId, obj);
+      await serverDataAPI.editCoin(serverId, obj);
+      await fetchCoins();
       setSuccess(true);
       setMessage("Order updated!");
-      await serverDataAPI.getMyCoins(ownerId)
       setTimeout(() => {
-        onClose();
+        setSuccess(false);
+        setMessage("");
+        onClose(); 
       }, 2500);
     } catch (err) {
       console.log(err);
+      setMessage("Error updating order");
       onClose();
     }
   };
