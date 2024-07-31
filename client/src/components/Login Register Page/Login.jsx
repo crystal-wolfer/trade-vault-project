@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/authContext.js";
 
 import * as authAPI from "../../API/authAPI.js";
@@ -93,9 +93,9 @@ export default function Login() {
 
             <span className={styles.infoText}> Don't have an account yet?</span>
 
-            <a href="/register" className={styles.signupLink}>
+            <Link to={"/register"} className={styles.signupLink}>
               Sign Up
-            </a>
+            </Link>
           </form>
         </div>
       </div>

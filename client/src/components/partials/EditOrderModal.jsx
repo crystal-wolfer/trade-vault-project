@@ -57,7 +57,7 @@ function EditOrderModal({ show, onClose, coin, fetchCoins }) {
     try {
       await serverDataAPI.editCoin(serverId, obj);
       await fetchCoins();
-      setSuccess(true);
+      setSuccess(true); 
       setMessage("Order updated!");
       setTimeout(() => {
         setSuccess(false);

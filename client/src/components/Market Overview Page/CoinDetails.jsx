@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as cryptoAPI from "../../API/cryptoAPI.js";
 import * as serverDataAPI from "../../API/serverDataAPI.js";
@@ -7,8 +7,10 @@ import LineChart from "../partials/LineChart.jsx";
 import SuccessToast from "../Toast Components/SuccessToast.jsx";
 import useMessage from "../../hooks/useMessage.js";
 
+
 export default function CoinDetails() {
   const { id } = useParams();
+  const { logo } = location.state || null;
   const [data, setData] = useState([]);
   const [coinInfo, setCoinInfo] = useState({});
   const [noCoin, setNoCoin] = useState(false);

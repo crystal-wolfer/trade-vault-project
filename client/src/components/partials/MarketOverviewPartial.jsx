@@ -60,7 +60,10 @@ export default function MarketPartial({
         <td className="px-6 py-4">{totalSupply} M</td>
         <td className="px-6 py-4">
           <Link
-            to={`/market-overview/trade/${_id}`}
+            to={{
+              pathname: `/market-overview/trade/${_id}`,
+              state: {logo}
+            }}
             onClick={handleClick}
             className="font-medium text-primary-600 dark:text-primary-500 hover:underline"
           >

@@ -1374,38 +1374,7 @@
 
         },
         wishlist: { 
-            "98022988-168b-4ce1-9fe8-dfd3231a7c41": {
-                "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
-                "amount": "0.25",
-                "paid": "818.70",
-                "key": "ethereum",
-                "name": "Ethereum",
-                "symbol": "ETH",
-                "_createdOn": 1722105137321,
-                "_id": "98022988-168b-4ce1-9fe8-dfd3231a7c41"
-            },
-            "d05cfd7d-563c-453a-9d20-b2148e0193c9":{
-                
-                "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
-                "amount": "250",
-                "paid": "1427.31",
-                "key": "near-protocol",
-                "name": "NEAR Protocol",
-                "symbol": "NEAR",
-                "_createdOn": 1722105325609,
-                "_id": "d05cfd7d-563c-453a-9d20-b2148e0193c9"
-            },
-            "31ab0bac-926c-43da-ae25-91ac7694117a":{
-                "_ownerId": "847ec027-f659-4086-8032-5173e2f9c93a",
-                "amount": "47",
-                "paid": "361.03",
-                "key": "uniswap",
-                "name": "Uniswap",
-                "symbol": "UNI",
-                "_createdOn": 1722105467500,
-                "_id": "31ab0bac-926c-43da-ae25-91ac7694117a"
-            },
-
+        
         },
     	movies: {
     		"1240549d-f0e0-497e-ab99-eb8f703713d7": {
