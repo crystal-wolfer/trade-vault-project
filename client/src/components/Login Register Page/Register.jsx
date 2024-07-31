@@ -30,7 +30,8 @@ export default function Register() {
   const {updateAuthState} = useContext(AuthContext)
  
   const onSubmit = async (data) => {
-    const result = await authAPI.register(data);
+    const avatar = "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Kurt&hairColor=Auburn&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=ShirtCrewNeck&clotheColor=PastelRed&eyeType=Wink&eyebrowType=Angry&mouthType=Twinkle&skinColor=Brown"
+    const result = await authAPI.register({...data, avatar });
     
     if (result.status === 409) {
       setError(result.message);

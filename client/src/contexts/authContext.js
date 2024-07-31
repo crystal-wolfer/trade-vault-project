@@ -6,6 +6,7 @@ export const AuthContext = createContext({
   firstName: "",
   _id: "",
   isAuth: false,
+  avatar: "",
   updateAuthState: () => null,
 });
 

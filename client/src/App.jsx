@@ -32,6 +32,7 @@ function App() {
     firstName: authState.firstName,
     isAuth: !!authState.email,
     _id: authState._id,
+    avatar: authState.avatar,
     updateAuthState,
   }
 
@@ -42,6 +43,7 @@ function App() {
       updateAuthState(foundUser);
     }
   }, []);
+  
 
   return (
     <AuthContext.Provider value = {contextData}>

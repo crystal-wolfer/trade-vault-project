@@ -22,6 +22,7 @@ export default function Login() {
 
   const submitHandler = async (data) => {
     const result = await authAPI.login(data);
+    const avatar = "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Kurt&hairColor=Auburn&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=ShirtCrewNeck&clotheColor=PastelRed&eyeType=Wink&eyebrowType=Angry&mouthType=Twinkle&skinColor=Brown"
 
     if (result.status === 403) {
       setError(result.message);
@@ -29,8 +30,8 @@ export default function Login() {
     }
 
     const {password, ...userData} = result;
-    updateAuthState(userData);
-    localStorage.setItem('user', JSON.stringify(userData))
+    updateAuthState({...userData, avatar});
+    localStorage.setItem('user', JSON.stringify({...userData, avatar}))
     setRedirect(true);    
   };
 

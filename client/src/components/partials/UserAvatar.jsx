@@ -30,7 +30,7 @@ export default function UserAvatar({ userData }) {
         data-dropdown-toggle="userDropdown"
         data-dropdown-placement="bottom-start"
         className="w-8 h-8 rounded-full cursor-pointer"
-        src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Kurt&hairColor=Auburn&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=ShirtCrewNeck&clotheColor=PastelRed&eyeType=Wink&eyebrowType=Angry&mouthType=Twinkle&skinColor=Brown'
+        src={userData.avatar}
         alt="User dropdown"
       />
 
