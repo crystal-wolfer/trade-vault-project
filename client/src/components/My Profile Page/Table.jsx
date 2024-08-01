@@ -1,8 +1,8 @@
 import { useState } from "react";
 import timeStampTranform from "../../util/timeStampTransform.js";
 
-import EditOrderModal from "../partials/EditOrderModal.jsx";
-import DeleteOrderModal from "../partials/DeleteOrderModal.jsx";
+import EditOrderModal from "./EditOrderModal.jsx";
+import DeleteOrderModal from "./DeleteOrderModal.jsx";
 
 function Table({ coins, ownerId, fetchCoins}) {
   const [showEditModal, setShowEditModal] = useState(false);

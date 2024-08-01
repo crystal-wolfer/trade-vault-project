@@ -10,7 +10,7 @@ import useMessage from "../../hooks/useMessage.js";
 
 export default function CoinDetails() {
   const { id } = useParams();
-  const { logo } = location.state || null;
+  //const { logo } = location.state || null;
   const [data, setData] = useState([]);
   const [coinInfo, setCoinInfo] = useState({});
   const [noCoin, setNoCoin] = useState(false);

@@ -4,11 +4,20 @@ import { AuthContext } from "../../contexts/authContext.js";
 import { useCoinData } from "../../hooks/useCoins.js";
 
 import Table from "./Table.jsx";
-import WishlistCard from "../partials/WishListCard.jsx";
+import WishlistCard from "./WishListCard.jsx";
+import UpdateProfile from "./UpdateProfile.jsx";
 
 export default function MyProfile() {
   const [activeCard, setActiveCard] = useState("");
   const { _id } = useContext(AuthContext);
+  const {email, firstName, lastName, avatar} = JSON.parse(localStorage.getItem("user"))
+
+  const statusLookup = [
+    { maxCoins: 2, status: "Newbie" },
+    { maxCoins: 7, status: "Talented" },
+    { maxCoins: 12, status: "Seasoned" },
+    { maxCoins: Infinity, status: "Expert" },
+  ];
 
   const handleCardClick = (card) => {
     setActiveCard(card);
@@ -17,8 +26,16 @@ export default function MyProfile() {
   const [{ coins }, fetchCoins] = useCoinData(_id);
 
   useEffect(() => {
-    fetchCoins(); 
+    fetchCoins();
   }, [fetchCoins]);
+
+
+  function getStatus(coins) {
+    return statusLookup.find((entry) => coins.length <= entry.maxCoins).status;
+  }
+
+  const status = getStatus(coins)
+
   return (
     <>
       <div className="flex items-center justify-center bg-gray-100 py-16">
@@ -31,7 +48,7 @@ export default function MyProfile() {
           <div className="flex flex-wrap justify-start">
             <div
               className="w-full md:w-1/2 xl:w-1/3 p-6"
-              onClick={() => handleCardClick("revenue")}
+              onClick={() => handleCardClick("orders")}
             >
               {/* start Green Metric */}
               <div className="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5">
@@ -164,7 +181,7 @@ export default function MyProfile() {
                     <h5 className="font-bold uppercase text-gray-600">
                       Account Details
                     </h5>
-                    <h3 className="font-bold text-3xl">Newbie</h3>
+                    <h3 className="font-bold text-3xl">{status}</h3>
                   </div>
                 </div>
               </div>
@@ -174,9 +191,14 @@ export default function MyProfile() {
 
           {/* Dynamic Content */}
           <div className="mt-8 p-4 bg-white rounded-lg shadow-xl">
-            {activeCard === "revenue" && (
+            {activeCard === "orders" && (
               <div>
-                <Table key={coins.length} coins={coins} ownerId={_id} fetchCoins={fetchCoins} />
+                <Table
+                  key={coins.length}
+                  coins={coins}
+                  ownerId={_id}
+                  fetchCoins={fetchCoins}
+                />
               </div>
             )}
             {activeCard === "wishList" && (
@@ -190,7 +212,11 @@ export default function MyProfile() {
                 </div>
               </div>
             )}
-            {activeCard === "account" && <div>Account Details: ...</div>}
+            {activeCard === "account" && (
+              <div>
+                <UpdateProfile emailOriginal={email} firstNameOriginal={firstName} lastNameOriginal={lastName} avatarOriginal={avatar}/>
+              </div>
+            )}
           </div>
         </div>
       </div>
