@@ -14,6 +14,10 @@ export default function UserAvatar({ userData }) {
   const { updateAuthState } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const {firstName, lastName, email, avatar, ...oldStorage} = JSON.parse(localStorage.getItem("user"));
+  console.log(avatar);
+
+
   const logoutHandler = async () => {
     const logout = await authAPI.logout();
     updateAuthState({});
@@ -30,7 +34,7 @@ export default function UserAvatar({ userData }) {
         data-dropdown-toggle="userDropdown"
         data-dropdown-placement="bottom-start"
         className="w-8 h-8 rounded-full cursor-pointer"
-        src={userData.avatar}
+        src={avatar}
         alt="User dropdown"
       />
 
@@ -40,7 +44,7 @@ export default function UserAvatar({ userData }) {
           className="z-10 absolute left-1/2 transform -translate-x-1/2 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600 sm:left-0 sm:transform-none sm:w-60"
         >
           <div className="px-4 py-3 text-sm text-gray-500 dark:text-white">
-            <div>Welcome back, {userData.firstName}!</div>
+            <div>Welcome back, {firstName}!</div>
           </div>
 
           <div className="py-1">

@@ -1,5 +1,9 @@
 import { useState } from "react";
 
+import SuccessToast from "../Toast Components/SuccessToast.jsx";
+import useMessage from "../../hooks/useMessage.js";
+
+
 const UpdateProfile = ({
   emailOriginal,
   firstNameOriginal,
@@ -10,6 +14,8 @@ const UpdateProfile = ({
   const [lastName, setLastName] = useState(lastNameOriginal);
   const [avatar, setAvatar] = useState(avatarOriginal);
   const [email, setEmail] = useState(emailOriginal);
+  const [message, setMessage] = useMessage();
+
 
   // Avatar options
   const avatarOptions = {
@@ -26,6 +32,14 @@ const UpdateProfile = ({
     SatoshiHunter:
       "https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Prescription01&facialHairType=BeardMajestic&facialHairColor=Auburn&clotheType=BlazerShirt&eyeType=Side&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=Tanned",
   };
+
+  const updateProfileHandler = () => {
+    const {accessToken, _createdOn, _id} = JSON.parse(localStorage.getItem("user"));
+    localStorage.setItem("user", JSON.stringify({avatar, email, firstName, lastName, accessToken, _createdOn, _id}));
+    const item = JSON.parse(localStorage.getItem("user"))
+    console.log(item);
+    setMessage("Profile Updated");
+  }
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
@@ -85,10 +99,11 @@ const UpdateProfile = ({
       </div>
 
       <div className="flex justify-end">
-        <button className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+        <button onClick={updateProfileHandler} className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
           Save Changes
         </button>
       </div>
+      {message && <SuccessToast message={message} />}
     </div>
   );
 };
