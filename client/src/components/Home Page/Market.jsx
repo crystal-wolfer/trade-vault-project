@@ -20,18 +20,16 @@ export default function Market() {
       setLoading(false);});
   }, [setCoins]);
 
-  return (
-    <section className="bg-angled-gradient py-8 bg-slate-400 flex flex-col items-start justify-center lg:flex-row">
-      {/* Container */}
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-5 py-8 md:px-8 md:py-8">
+    return (
+    <section className="relative bg-angled-gradient py-8 bg-slate-400 flex flex-col items-start justify-center lg:flex-row">
+      <div className="absolute inset-0 pattern-wavy pattern-blue-400 pattern-bg-white pattern-size-2 pattern-opacity-15"></div>
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-5 py-8 md:px-8 md:py-8">
         <h2 className="text-center text-3xl font-bold lg:text-4xl pb-8">
           Hottest crypto assets
         </h2>
 
         <div className="flex flex-col w-full items-center justify-center lg:flex-row md: ">
-          {/* Item1 */}
-          {loading && <Spinner/>}
-          
+          {loading && <Spinner />}
           {coins.map((coin) => {
             const changePercentage =
               ((coin.high24h - coin.low24h) / coin.low24h) * 100;
@@ -51,12 +49,12 @@ export default function Market() {
 
         <div className="py-8 lg:py-4">
           <Link to="/market-overview">
-          <button
-            type="button"
-            className="w-64 text-white bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium  rounded text-lg px-4 py-4 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-          >
-            Explore more assets
-          </button>
+            <button
+              type="button"
+              className="w-64 text-white bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded text-lg px-4 py-4 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            >
+              Explore more assets
+            </button>
           </Link>
         </div>
       </div>
