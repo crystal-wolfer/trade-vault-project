@@ -42,66 +42,69 @@ const UpdateProfile = ({
   }
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <div className="flex flex-col items-center mb-6">
-        <img
-          src={avatar}
-          alt="Avatar"
-          className="w-24 h-24 rounded-full mb-4"
-        />
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Change Avatar
-        </label>
-        <select
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
-          className="block w-full py-2 px-3 mb-4 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        >
-          {Object.entries(avatarOptions).map(([key, url]) => (
-            <option key={key} value={url}>
-              {key}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">
-          First Name
-        </label>
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Last Name
-        </label>
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Email
-        </label>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
-      </div>
-
-      <div className="flex justify-end">
-        <button onClick={updateProfileHandler} className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-          Save Changes
-        </button>
+    <div className="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+      <div className="flex">
+        <div className="w-1/3 flex flex-col items-center">
+          <img
+            src={avatar}
+            alt="Avatar"
+            className="w-24 h-24 rounded-full mb-4"
+          />
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Change Avatar
+          </label>
+          <select
+            value={avatar}
+            onChange={(e) => setAvatar(e.target.value)}
+            className="block w-full py-2 px-3 mb-4 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            {Object.entries(avatarOptions).map(([key, url]) => (
+              <option key={key} value={url}>
+                {key}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="w-2/3 ml-8">
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              First Name
+            </label>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Last Name
+            </label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div className="flex justify-end">
+            <button onClick={updateProfileHandler} className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+              Save Changes
+            </button>
+          </div>
+        </div>
       </div>
       {message && <SuccessToast message={message} />}
     </div>
