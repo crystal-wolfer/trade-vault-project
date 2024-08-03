@@ -1,6 +1,8 @@
 import * as serverDataAPI from "../../API/serverDataAPI.js";
+import { Link } from "react-router-dom";
 
 export default function WishlistCard({
+  link,
   logo,
   name,
   symbol,
@@ -17,6 +19,8 @@ export default function WishlistCard({
       console.error("Failed to delete coin:", err);
     }
   };
+
+  console.log(link);
 
   return (
     <>
@@ -40,53 +44,55 @@ export default function WishlistCard({
             />
           </svg>
         </span>
-        <div className="flex justify-center mb-">
-          <div className="bg-primary-100 p-3 rounded-full">
-            <img src={logo} alt={`${name} Logo`} className="h-8 w-8" />
+        <Link to={`/market-overview/trade/${link}`} state={{ logo }}>
+          <div className="flex justify-center mb-">
+            <div className="bg-primary-100 p-3 rounded-full">
+              <img src={logo} alt={`${name} Logo`} className="h-8 w-8" />
+            </div>
           </div>
-        </div>
-        <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
-        <p className="text-sm text-gray-500">
-          {symbol} {price}
-        </p>
-        <div
-          className={`flex items-center justify-center font-semibold mt-4 ${
-            change > 0 ? "text-green-500" : "text-red-500"
-          }`}
-        >
-          {change > 0 ? (
-            <svg
-              className="h-7 w-7 text-green-500 mr-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 10l7-7m0 0l7 7m-7-7v18"
-              ></path>
-            </svg>
-          ) : (
-            <svg
-              className="h-7 w-7 text-red-500 mr-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              ></path>
-            </svg>
-          )}
-          <span className="text-xl">{Math.abs(change)}%</span>
-        </div>
+          <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
+          <p className="text-sm text-gray-500">
+            {symbol} {price}
+          </p>
+          <div
+            className={`flex items-center justify-center font-semibold mt-4 ${
+              change > 0 ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {change > 0 ? (
+              <svg
+                className="h-7 w-7 text-green-500 mr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M5 10l7-7m0 0l7 7m-7-7v18"
+                ></path>
+              </svg>
+            ) : (
+              <svg
+                className="h-7 w-7 text-red-500 mr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                ></path>
+              </svg>
+            )}
+            <span className="text-xl">{Math.abs(change)}%</span>
+          </div>
+        </Link>
       </div>
     </>
   );

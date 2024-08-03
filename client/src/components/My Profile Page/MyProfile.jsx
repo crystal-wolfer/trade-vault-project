@@ -11,7 +11,9 @@ import UpdateProfile from "./UpdateProfile.jsx";
 export default function MyProfile() {
   const [activeCard, setActiveCard] = useState("");
   const { _id } = useContext(AuthContext);
-  const {email, firstName, lastName, avatar} = JSON.parse(localStorage.getItem("user"))
+  const { email, firstName, lastName, avatar } = JSON.parse(
+    localStorage.getItem("user")
+  );
 
   const statusLookup = [
     { maxCoins: 2, status: "Newbie" },
@@ -25,18 +27,16 @@ export default function MyProfile() {
   };
 
   const [{ coins }, fetchCoins] = useCoinData(_id);
-  
 
   useEffect(() => {
     fetchCoins();
   }, [fetchCoins]);
 
-  
   const [list, setWishList] = useState([]);
   const [noList, setNoList] = useState(false);
 
   useEffect(() => {
-     async function fetchWishList() {
+    async function fetchWishList() {
       try {
         const list = await serverDataAPI.getMyWishList(_id);
         if (!list) {
@@ -52,16 +52,18 @@ export default function MyProfile() {
 
     fetchWishList();
   }, [_id]);
-  
+
   const removeItem = (id) => {
-    setWishList((prevWishlist) => prevWishlist.filter((item) => item._id !== id));
+    setWishList((prevWishlist) =>
+      prevWishlist.filter((item) => item._id !== id)
+    );
   };
 
   function getStatus(coins) {
     return statusLookup.find((entry) => coins.length <= entry.maxCoins).status;
   }
 
-  const status = getStatus(coins)
+  const status = getStatus(coins);
 
   return (
     <>
@@ -229,29 +231,43 @@ export default function MyProfile() {
               </div>
             )}
             {activeCard === "wishList" && (
-              <div className="flex w-full max-w-screen-xl mx-auto items-center justify-center">
-                <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 p-6">
-                  {list.map( (item) => {
-                    return(
-                      <WishlistCard 
-                        key={item._id}
-                        logo={item.logo}
-                        name={item.name}
-                        symbol={item.symbol}
-                        price={item.price}
-                        change={item.change}
-                        id={item._id}
-                        removeItem={removeItem}
-                      />
-                    )
-                  })}
-                  
-                </div>
+              <div className="py-8">
+                {list.length === 0 ? (
+                  <section className="flex items-center justify-center bg-white dark:bg-gray-900">
+                    <h3 className="text-2xl font-bold tracking-tight text-primary-800 dark:text-white">
+                      Your waitlist is empty!
+                    </h3>
+                  </section>
+                ) : (
+                  <div className="w-full max-w-screen-xl mx-auto p-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                      {list.map((item) => (
+                        <WishlistCard
+                          key={item._id}
+                          logo={item.logo}
+                          name={item.name}
+                          link={item.key}
+                          symbol={item.symbol}
+                          price={item.price}
+                          change={item.change}
+                          id={item._id}
+                          removeItem={removeItem}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
+
             {activeCard === "account" && (
               <div>
-                <UpdateProfile emailOriginal={email} firstNameOriginal={firstName} lastNameOriginal={lastName} avatarOriginal={avatar}/>
+                <UpdateProfile
+                  emailOriginal={email}
+                  firstNameOriginal={firstName}
+                  lastNameOriginal={lastName}
+                  avatarOriginal={avatar}
+                />
               </div>
             )}
           </div>
