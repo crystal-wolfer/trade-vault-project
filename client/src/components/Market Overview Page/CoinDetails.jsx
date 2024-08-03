@@ -115,13 +115,11 @@ export default function CoinDetails() {
     async function fetchWishList() {
       try {
         const list = await serverDataAPI.getMyWishList(_id);
-        console.log(list);
         if (!list) {
           setInList(true);
         } else {
           const check = list.some((item) => (item.key == id));
           setWishList(list);
-          console.log(check);
           setInList(check);
         }
       } catch (error) {
