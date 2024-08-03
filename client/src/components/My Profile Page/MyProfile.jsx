@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../contexts/authContext.js";
 
 import { useCoinData } from "../../hooks/useCoins.js";
+import * as serverDataAPI from "../../API/serverDataAPI.js";
 
 import Table from "./Table.jsx";
 import WishlistCard from "./WishListCard.jsx";
@@ -14,7 +15,7 @@ export default function MyProfile() {
 
   const statusLookup = [
     { maxCoins: 2, status: "Newbie" },
-    { maxCoins: 7, status: "Talented" },
+    { maxCoins: 6, status: "Talented" },
     { maxCoins: 12, status: "Seasoned" },
     { maxCoins: Infinity, status: "Expert" },
   ];
@@ -24,11 +25,37 @@ export default function MyProfile() {
   };
 
   const [{ coins }, fetchCoins] = useCoinData(_id);
+  
 
   useEffect(() => {
     fetchCoins();
   }, [fetchCoins]);
 
+  
+  const [list, setWishList] = useState([]);
+  const [noList, setNoList] = useState(false);
+
+  useEffect(() => {
+     async function fetchWishList() {
+      try {
+        const list = await serverDataAPI.getMyWishList(_id);
+        if (!list) {
+          setNoList(true);
+        } else {
+          setWishList(list);
+        }
+      } catch (error) {
+        console.error(error);
+        setNoList(true);
+      }
+    }
+
+    fetchWishList();
+  }, [_id]);
+  
+  const removeItem = (id) => {
+    setWishList((prevWishlist) => prevWishlist.filter((item) => item._id !== id));
+  };
 
   function getStatus(coins) {
     return statusLookup.find((entry) => coins.length <= entry.maxCoins).status;
@@ -138,10 +165,10 @@ export default function MyProfile() {
                   </div>
                   <div className="flex-1 text-right md:text-right">
                     <h5 className="font-bold uppercase text-gray-600">
-                      Wishlist
+                      Waitlist
                     </h5>
                     <h3 className="font-bold text-3xl">
-                      2 coins
+                      {list.length}
                       <span className="text-yellow-600">
                         <i className="fas fa-caret-up"></i>
                       </span>
@@ -204,11 +231,21 @@ export default function MyProfile() {
             {activeCard === "wishList" && (
               <div className="flex w-full max-w-screen-xl mx-auto items-center justify-center">
                 <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 p-6">
-                  <WishlistCard />
-                  <WishlistCard />
-                  <WishlistCard />
-                  <WishlistCard />
-                  <WishlistCard />
+                  {list.map( (item) => {
+                    return(
+                      <WishlistCard 
+                        key={item._id}
+                        logo={item.logo}
+                        name={item.name}
+                        symbol={item.symbol}
+                        price={item.price}
+                        change={item.change}
+                        id={item._id}
+                        removeItem={removeItem}
+                      />
+                    )
+                  })}
+                  
                 </div>
               </div>
             )}

@@ -1,25 +1,24 @@
 import { useState } from "react";
+import * as serverDataAPI from "../../API/serverDataAPI.js";
 
-import DeleteOrderModal from "./DeleteOrderModal.jsx";
 
-export default function WishlistCard({ logo, name, symbol, price, change }) {
-  logo = "https://cryptologos.cc/logos/avalanche-avax-logo.png";
-  name = "Avalanche";
-  symbol = "AVAX";
-  price = "32.35";
-  change = "-0.35";
+export default function WishlistCard({ logo, name, symbol, price, change, id, removeItem }) {
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  const handleOpenDeleteModal = () => setShowDeleteModal(true);
-  const handleCloseDeleteModal = () => setShowDeleteModal(false);
+  const deleteItemHandler = async () => {
+    try {
+      const response = await serverDataAPI.removeFromWishList(id);
+      removeItem(id)
+    } catch (err) {
+      console.error("Failed to delete coin:", err);
+    }
+  };
 
   return (
     <>
       <div className="relative bg-white shadow-md rounded-lg p-6 text-center border border-gray-200">
         {/* Delete Indicator */}
         <span
-          onClick={handleOpenDeleteModal}
+          onClick={deleteItemHandler}
           className="bg-red-200 text-xs font-medium text-red-800 flex items-center justify-center h-8 w-8 rounded-full cursor-pointer hover:bg-red-300 dark:bg-red-900 dark:text-red-200 dark:hover:bg-red-700 absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"
         >
           <svg
@@ -37,7 +36,7 @@ export default function WishlistCard({ logo, name, symbol, price, change }) {
           </svg>
         </span>
         <div className="flex justify-center mb-">
-          <div className="bg-orange-500 p-3 rounded-full">
+          <div className="bg-primary-100 p-3 rounded-full">
             <img src={logo} alt={`${name} Logo`} className="h-8 w-8" />
           </div>
         </div>
@@ -84,11 +83,7 @@ export default function WishlistCard({ logo, name, symbol, price, change }) {
           <span className="text-xl">{Math.abs(change)}%</span>
         </div>
       </div>
-      {/* Delete Modal */}
-      <DeleteOrderModal
-        show={showDeleteModal}
-        onClose={handleCloseDeleteModal}
-      />
+
     </>
   );
 }

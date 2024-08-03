@@ -1,6 +1,7 @@
 import * as requester from "./serverRequester.js";
 
 const BASE_URL = "http://localhost:3030/data/coins";
+const WISH_URL = "http://localhost:3030/data/wishlist"
 
 export const getAll = async () => {
   try {
@@ -48,6 +49,39 @@ export const editCoin = async (coinId, data) => {
 export const deleteCoin = async (coinId) => {
   try {
     const result = await requester.del(`${BASE_URL}/${coinId}`);
+
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const getMyWishList = async (ownerId) => {
+  try {
+    const result = await requester.get(
+      `http://localhost:3030/data/wishlist?where=_ownerId%3D%22${ownerId}%22`
+    );
+    const list = Object.values(result);
+    return list;
+    
+  } catch (error) {
+    return error.message;
+  }
+
+};
+
+export const addToWishList = async (data) => {
+   try {
+    const result = await requester.post("http://localhost:3030/data/wishlist", data);
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+}
+
+export const removeFromWishList = async (id) => {
+    try {
+    const result = await requester.del(`${WISH_URL}/${id}`);
 
     return result;
   } catch (error) {

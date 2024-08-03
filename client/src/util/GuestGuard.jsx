@@ -5,7 +5,6 @@ export default function GuestGuard(props){
 
 
     if(loggedInUser){
-        console.log('redirecting auth');
         return <Navigate to = "/"></Navigate>
     }
 

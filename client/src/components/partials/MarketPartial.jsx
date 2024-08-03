@@ -94,10 +94,8 @@ export default function MarketPartial({
           </p>
         </div>
         <Link
-          to={{
-              pathname: `/market-overview/trade/${_id}`,
-              state: {logo}
-            }}
+          to={`/market-overview/trade/${_id}`}
+          state = {{logo}}
           onClick={handleClick}
           className="pt-6 inline-flex font-medium items-center text-primary-600 hover:underline"
         >

@@ -29,7 +29,7 @@ export default function MarketPartial({
     setError(null);
   };
 
-  return (
+    return (
     <>
       <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
         <th scope="col" className="px-2 py-3">
@@ -60,10 +60,8 @@ export default function MarketPartial({
         <td className="px-6 py-4">{totalSupply} M</td>
         <td className="px-6 py-4">
           <Link
-            to={{
-              pathname: `/market-overview/trade/${_id}`,
-              state: {logo}
-            }}
+            to={`/market-overview/trade/${_id}`}
+            state = {{logo}}
             onClick={handleClick}
             className="font-medium text-primary-600 dark:text-primary-500 hover:underline"
           >

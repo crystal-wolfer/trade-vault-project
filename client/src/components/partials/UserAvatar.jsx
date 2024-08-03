@@ -17,7 +17,6 @@ export default function UserAvatar({ userData }) {
   const { firstName, lastName, email, avatar, ...oldStorage } = JSON.parse(
     localStorage.getItem("user")
   );
-  console.log(avatar);
 
   const logoutHandler = async () => {
     const logout = await authAPI.logout();
