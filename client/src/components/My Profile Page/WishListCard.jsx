@@ -1,12 +1,18 @@
 import * as serverDataAPI from "../../API/serverDataAPI.js";
 
-
-export default function WishlistCard({ logo, name, symbol, price, change, id, removeItem }) {
-
+export default function WishlistCard({
+  logo,
+  name,
+  symbol,
+  price,
+  change,
+  id,
+  removeItem,
+}) {
   const deleteItemHandler = async () => {
     try {
       const response = await serverDataAPI.removeFromWishList(id);
-      removeItem(id)
+      removeItem(id);
     } catch (err) {
       console.error("Failed to delete coin:", err);
     }
@@ -82,7 +88,6 @@ export default function WishlistCard({ logo, name, symbol, price, change, id, re
           <span className="text-xl">{Math.abs(change)}%</span>
         </div>
       </div>
-
     </>
   );
 }
