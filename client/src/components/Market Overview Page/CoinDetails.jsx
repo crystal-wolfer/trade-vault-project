@@ -70,7 +70,7 @@ export default function CoinDetails() {
     }
   }, [success, setMessage]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (wishlist) {
       setMessage("Added to waitlist!");
       setWishlist(false);
@@ -118,7 +118,7 @@ export default function CoinDetails() {
         if (!list) {
           setInList(true);
         } else {
-          const check = list.some((item) => (item.key == id));
+          const check = list.some((item) => item.key == id);
           setWishList(list);
           setInList(check);
         }
@@ -277,8 +277,22 @@ export default function CoinDetails() {
                   Add to waitlist
                 </button>
               ) : (
-                <p className="cursor-not-allowed flex items-center bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300 mt-2 sm:mt-0 w-full sm:w-auto h-12 sm:h-auto">
-                  Already in list
+                <p className="cursor-not-allowed flex items-center bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300 mt-2 sm:mt-0 w-full sm:w-auto h-12 sm:h-auto">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 16 16"
+                    version="1.1"
+                    fill="none"
+                    stroke="#166534"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  >
+                    <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5" />
+                  </svg>
+                  Added to waitlist
                 </p>
               )}
             </div>
