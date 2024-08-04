@@ -21,10 +21,14 @@ export default function Events() {
 
   return (
     <section className="py-24 bg-white dark:bg-gray-900">
-      <div className="grid gap-8 lg:grid-cols-3 py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+      <h2 className="px-4 mx-auto max-w-screen-xl lg:py-4 lg:px-4 text-4xl tracking-tight font-bold text-gray-900 dark:text-white">
+        See all upcoming crypto events in Europe
+      </h2>
+      <div className="grid gap-8 lg:grid-cols-3 py-2 px-4 mx-auto max-w-screen-xl lg:py-2 lg:px-6">
         {events.map((event) => {
           const { month, day, time } = formatEventDateTime(event.start_time);
-
+          console.log(event.event_id);
+          
           return (
             <div
               key={event.id}
@@ -74,7 +78,7 @@ export default function Events() {
                     {event.venue.timezone}
                   </div>
                   <Link
-                    to={`/events/`}
+                    to={`/events/${event.event_id}`}
                     className="inline-flex font-medium items-center text-primary-600 hover:underline"
                   >
                     See details

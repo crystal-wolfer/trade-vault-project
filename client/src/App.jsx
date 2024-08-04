@@ -17,7 +17,7 @@ import NotFound from "./components/Static Pages/404.jsx";
 import AuthGuard from "./util/AuthGuard.jsx";
 import GuestGuard from "./util/GuestGuard.jsx";
 import Events from "./components/Home Page/Events.jsx";
-
+import EventDetails from "./components/Home Page/EventDetails.jsx";
 
 
 function App() {
@@ -55,6 +55,7 @@ function App() {
           <Route path="/market-overview" element={<MarketOverview />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/events/:eventId" element={<EventDetails/>} />
           <Route path="/my-profile" element={<AuthGuard> <MyProfile /> </AuthGuard>} />
           <Route path="/login" element={<GuestGuard> <Login /> </GuestGuard>} />
           <Route path="/register" element={<GuestGuard> <Register /> </GuestGuard>} />
