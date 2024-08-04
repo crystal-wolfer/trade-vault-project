@@ -3,8 +3,6 @@ import { useLocation, Link } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext.js";
 import UserAvatar from "./partials/UserAvatar.jsx";
 
-
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -24,19 +22,22 @@ const Navbar = () => {
   return (
     <nav className="mb-14 bg-white border-gray-200 dark:bg-gray-900 fixed w-full z-20 top-0 start-0">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
+        <Link
+          to="/"
+          className="flex items-center space-x-1 rtl:space-x-reverse"
+        >
           <img src="/Logo.png" className="h-12" alt="TradeVault Logo" />
         </Link>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        {isAuth 
-          ? <UserAvatar userData={userData}/> 
-          : <Link to="/register">
+          {isAuth ? (
+            <UserAvatar userData={userData} />
+          ) : (
+            <Link to="/register">
               <button type="button" className="btn-primary">
                 Get started
               </button>
             </Link>
-        }
-
+          )}
 
           <button
             data-collapse-toggle="navbar-cta"
@@ -98,6 +99,17 @@ const Navbar = () => {
                 )}`}
               >
                 Market Overview
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/events"
+                className={`block py-2 px-3 md:p-0 ${getLinkClasses(
+                  "/events"
+                )}`}
+              >
+                Events
               </Link>
             </li>
 
