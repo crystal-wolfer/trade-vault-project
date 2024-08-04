@@ -31,6 +31,8 @@ const UpdateProfile = ({
       "https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Prescription02&facialHairType=Blank&clotheType=BlazerSweater&eyeType=Squint&eyebrowType=DefaultNatural&mouthType=Smile&skinColor=Light",
     SatoshiHunter:
       "https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Prescription01&facialHairType=BeardMajestic&facialHairColor=Auburn&clotheType=BlazerShirt&eyeType=Side&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=Tanned",
+    TokenEmpress:
+      "https://avataaars.io/?avatarStyle=Circle&topType=LongHairDreads&accessoriesType=Wayfarers&hairColor=BlondeGolden&facialHairType=Blank&clotheType=GraphicShirt&clotheColor=Pink&graphicType=Skull&eyeType=Happy&eyebrowType=RaisedExcited&mouthType=Default&skinColor=Brown"
   };
 
   const updateProfileHandler = () => {
