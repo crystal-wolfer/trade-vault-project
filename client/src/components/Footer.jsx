@@ -14,10 +14,16 @@ export default function Footer() {
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
                   <ul className="text-gray-500 dark:text-gray-400 font-medium">
                       <li className="mb-4">
-                          <a href="https://react.dev/" className="hover:underline">React</a>
+                          <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" className="hover:underline ">React</a>
                       </li>
-                      <li>
-                          <a href="https://tailwindcss.com/" className="hover:underline">Tailwind CSS</a>
+                      <li className="mb-4">
+                          <a href="https://tailwindcss.com/" target="_blank" rel="noopener noreferrer" className="hover:underline">Tailwind CSS</a>
+                      </li>
+                      <li className="mb-4">
+                          <a href="https://rapidapi.com/hub" target="_blank" rel="noopener noreferrer" className="hover:underline">RapidAPI</a>
+                      </li>                      
+                      <li className="mb-4">
+                          <a href="https://getavataaars.com/" target="_blank" rel="noopener noreferrer" className="hover:underline">Avataaars</a>
                       </li>
                   </ul>
               </div>
@@ -25,7 +31,7 @@ export default function Footer() {
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
                   <ul className="text-gray-500 dark:text-gray-400 font-medium">
                       <li className="mb-4">
-                          <a href="hhttps://github.com/crystal-wolfer" className="hover:underline ">Github</a>
+                          <a href="hhttps://github.com/crystal-wolfer" target="_blank" rel="noopener noreferrer" className="hover:underline ">Github</a>
                       </li>
                   </ul>
               </div>
@@ -33,10 +39,10 @@ export default function Footer() {
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                   <ul className="text-gray-500 dark:text-gray-400 font-medium">
                       <li className="mb-4">
-                          <a href="#" className="hover:underline">Privacy Policy</a>
+                          <a className="hover:underline">Privacy Policy</a>
                       </li>
                       <li>
-                          <a href="#" className="hover:underline">Terms &amp; Conditions</a>
+                          <a className="hover:underline">Terms &amp; Conditions</a>
                       </li>
                   </ul>
               </div>
