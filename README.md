@@ -4,7 +4,7 @@ This project is part of the Softuni Software Development JavaScript path and aim
 
 TradeVault is a basic cryptocurrency trading platform built with React. This application allows users to view and manage their crypto portfolios. The project includes a client-side application that fetches data from a ready-made server and some external APIs. The focus of this project was to create a realistic platform with user friendly interface.
 
-[![screen-capture.gif](https://i.postimg.cc/BvsH0h0B/screen-capture.gif)](https://postimg.cc/xXxcG3qX)
+![til](./TradeVaultDemo.gif)
 
 ## Table of Contents
 - [Introduction](#introduction)
