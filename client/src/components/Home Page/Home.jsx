@@ -1,5 +1,5 @@
-import useMessage from "../../hooks/useMessage.js";
-import * as eventsAPI from "../../API/eventsAPI.js";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import Hero from "./Hero.jsx";
 import Market from "./Market.jsx";
@@ -10,9 +10,16 @@ import News from "./News.jsx";
 import SuccessToast from "../Toast Components/SuccessToast.jsx";
 
 export default function Home() {
-  const [message, setMessage] = useMessage();
+  const location = useLocation();
+  const [message, setMessage] = useState("");
 
-  eventsAPI.getEvents()
+  useEffect(() => {
+    if (location.state && location.state.message) {
+      setMessage(location.state.message);
+      window.history.replaceState({}, document.title); // clearing the state from the history to prevent showing the toast again
+    }
+  }, [location.state]);
+
 
   return (
     <>
@@ -22,7 +29,7 @@ export default function Home() {
       <HowWorks />
       <Customers />
       <News />
-      {message !=="" ? (<SuccessToast message={message}/>) : null}
+      {message !== "" && <SuccessToast message={message} />}
     </>
   );
 }

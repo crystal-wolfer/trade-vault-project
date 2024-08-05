@@ -2,8 +2,9 @@
 
 This project is part of the Softuni Software Development JavaScript path and aims to demonstrate my knowledge and skills of creating SPA application with React.
 
-TradeVault is a basic cryptocurrency trading platform built with React. This application allows users to view and manage their crypto portfolios. The project includes a client-side application that fetches data from a ready-made server and some external APIs.
+TradeVault is a basic cryptocurrency trading platform built with React. This application allows users to view and manage their crypto portfolios. The project includes a client-side application that fetches data from a ready-made server and some external APIs. The focus of this project was to create a realistic platform with user friendly interface.
 
+[![screen-capture.gif](https://i.postimg.cc/BvsH0h0B/screen-capture.gif)](https://postimg.cc/xXxcG3qX)
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -51,12 +52,15 @@ TradeVault is a cryptocurrency trading platform designed to help users grow and 
 
 6. Start the server:
     ```bash
-    npm start
+    node server.js
     ```
 
 ## Usage
 
-To use the application, follow the installation steps above and ensure both the client and server are running. Navigate to `http://localhost:5173` in your browser to access the TradeVault platform.
+To use the application, follow the installation steps above and ensure both the client and server are running. Navigate to `http://localhost:5173` in your browser to access the TradeVault platform. The platform comes with 3 preseeded accounts:
+- peter@abv.bg; 123456
+- george@abv.bg; 123456
+- admin@abv.bg; admin
 
 ## Features
 

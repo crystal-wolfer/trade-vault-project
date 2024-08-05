@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/authContext.js";
 
 import * as authAPI from "../../API/authAPI.js";
@@ -28,6 +28,7 @@ export default function Register() {
   const [redirect, setRedirect] = useState(false);
 
   const {updateAuthState} = useContext(AuthContext)
+  const navigate = useNavigate()
  
   const onSubmit = async (data) => {
     const avatar = "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Kurt&hairColor=Auburn&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=ShirtCrewNeck&clotheColor=PastelRed&eyeType=Wink&eyebrowType=Angry&mouthType=Twinkle&skinColor=Brown"
@@ -41,7 +42,8 @@ export default function Register() {
     const {password, confirmPassword, ...userData} = result;
     updateAuthState(userData);
     localStorage.setItem('user', JSON.stringify(userData))
-    setRedirect(true);    
+    navigate("/", { state: { message: "Registration successful!"}})
+    //setRedirect(true);    
   };
 
   const handleCloseToast = () => {
@@ -160,10 +162,7 @@ export default function Register() {
           <ErrorToast error={error} handleCloseToast = {handleCloseToast}/>
         </div>
       )}
-
-      {redirect && <Navigate to={"/"}  state={ {message: "Registration successful!"}}/>}
+      
     </div>
   );
 }
-
-// https://i.ibb.co/gwhH2xn/test.png

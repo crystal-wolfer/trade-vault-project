@@ -10,7 +10,7 @@ export default function NewsPartial({
             <div className="flex-grow">
               <div className="flex-col content-start">
                 <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white flex content-start">
-                  <a href="#">
+                  <a href={url} target="_blank" rel="noopener noreferrer">
                     {title}
                   </a>
                 </h2>
@@ -30,6 +30,8 @@ export default function NewsPartial({
               </div>
               <a
                 href={url}
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline"
               >
                 Read more

@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import * as eventsAPI from "../../API/eventsAPI.js";
 
 import formatEventDateTime from "../../util/formatEventDate.js";
-import Spinner from "../Static Pages/Loading.jsx";
 
 export default function EventDetails() {
   const { eventId } = useParams();
@@ -23,8 +24,8 @@ export default function EventDetails() {
   }, [eventId]);
 
   const venue = event.venue;
-  console.log(venue);
-  //console.log(venue.rating);
+  console.log(event);
+  //console.log(event.link);
 
   const { month, day, time } = formatEventDateTime("2024-09-25 08:00:00");
 
@@ -71,6 +72,17 @@ export default function EventDetails() {
                 rel="noopener noreferrer"
               >
                 {event.venue.website}
+              </a>
+            </p>
+            <p className="text-gray-600">
+              Get your ticket:{" "}
+              <a
+                className="text-primary-600"
+                href={event.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {event.link}
               </a>
             </p>
           </div>
