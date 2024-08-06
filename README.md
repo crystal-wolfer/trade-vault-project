@@ -45,12 +45,7 @@ TradeVault is a cryptocurrency trading platform designed to help users grow and 
     npm start dev
     ```
 
-5. In a new terminal window, navigate to the server directory and install the server dependencies:
-    ```bash
-    npm install
-    ```
-
-6. Start the server:
+5. In a new terminal window, navigate to the server directory and start the server:
     ```bash
     node server.js
     ```
