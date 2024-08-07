@@ -16,7 +16,7 @@ TradeVault is a basic cryptocurrency trading platform built with React. This app
 
 ## Introduction
 
-TradeVault is a cryptocurrency trading platform designed to help users grow and manage their crypto portfolios with ease. The platform provides market overviews, user profile management, and more. You can directly access the application from here: `https://trade-vault.web.app/` or follow the steps below to run the application locally on your machine.
+TradeVault is a cryptocurrency trading platform designed to help users grow and manage their crypto portfolios with ease. The platform provides market overviews, user profile management, and more. You can directly access the application from here: https://trade-vault.web.app/ or follow the steps below to run the application locally on your machine.
 
 ## Installation
 
