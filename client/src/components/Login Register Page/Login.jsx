@@ -16,23 +16,27 @@ export default function Login() {
   } = useForm();
 
   const [error, setError] = useState(null);
-  const {updateAuthState} = useContext(AuthContext)
+  const { updateAuthState } = useContext(AuthContext);
   const [redirect, setRedirect] = useState(false);
 
-
   const submitHandler = async (data) => {
-    const result = await authAPI.login(data);
-    const avatar = "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Kurt&hairColor=Auburn&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=ShirtCrewNeck&clotheColor=PastelRed&eyeType=Wink&eyebrowType=Angry&mouthType=Twinkle&skinColor=Brown"
+    try {
+      const result = await authAPI.login(data);
+      const avatar = "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Kurt&hairColor=Auburn&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=ShirtCrewNeck&clotheColor=PastelRed&eyeType=Wink&eyebrowType=Angry&mouthType=Twinkle&skinColor=Brown";
 
-    if (result.status === 403) {
-      setError(result.message);
-      return;
+      if (result.status === 403) {
+        setError(result.message);
+        return;
+      }
+
+      const { password, ...userData } = result;
+      updateAuthState({ ...userData, avatar });
+      localStorage.setItem('user', JSON.stringify({ ...userData, avatar }));
+      setRedirect(true);
+    } catch (error) {
+      setError('An unexpected error occurred. Please try again later.');
+      console.error('Login error:', error);
     }
-
-    const {password, ...userData} = result;
-    updateAuthState({...userData, avatar});
-    localStorage.setItem('user', JSON.stringify({...userData, avatar}))
-    setRedirect(true);    
   };
 
   const handleCloseToast = () => {
@@ -58,6 +62,10 @@ export default function Login() {
               <input
                 {...register("email", {
                   required: "Email is required",
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: "Entered value does not match email format"
+                  }
                 })}
                 type="text"
                 placeholder="Email"
@@ -76,7 +84,6 @@ export default function Login() {
                 })}
                 type="password"
                 placeholder="Password"
-                
               />
               {errors.password && (
                 <p className="text-red-500 text-sm m-2">
@@ -103,13 +110,14 @@ export default function Login() {
 
       {error && (
         <div>
-          <ErrorToast error={error} handleCloseToast = {handleCloseToast}/>
+          <ErrorToast error={error} handleCloseToast={handleCloseToast} />
         </div>
       )}
 
-      {redirect && <Navigate to={"/"}/>}
+      {redirect && <Navigate to={"/"} />}
     </div>
   );
 }
+
 
 // https://i.ibb.co/gwhH2xn/test.png

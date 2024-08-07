@@ -1,5 +1,6 @@
 import * as requester from "./serverRequester.js";
-const BASE_URL = "http://localhost:3030/jsonstore/events";
+//const BASE_URL = "http://localhost:3030/jsonstore/events";
+const BASE_URL = `${import.meta.env.VITE_API_URL}/data/events`;
 
 
 export const getEvents = async () => {
@@ -16,7 +17,7 @@ export const getEvents = async () => {
 export const getEventById = async (id) => {
   
    try {
-    const result = await requester.get(`http://localhost:3030/jsonstore/events/${id}`);
+    const result = await requester.get(`http://localhost:3030/data/events/${id}`);
     
     console.log(result);
     

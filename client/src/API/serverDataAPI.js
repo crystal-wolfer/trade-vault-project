@@ -1,7 +1,9 @@
 import * as requester from "./serverRequester.js";
 
-const BASE_URL = "http://localhost:3030/data/coins";
-const WISH_URL = "http://localhost:3030/data/wishlist"
+//const BASE_URL = "http://localhost:3030/data/coins";
+const BASE_URL = `${import.meta.env.VITE_API_URL}/data/coins`;
+//const WISH_URL = "http://localhost:3030/data/wishlist"
+const WISH_URL = `${import.meta.env.VITE_API_URL}/data/wishlist`
 
 export const getAll = async () => {
   try {
@@ -26,7 +28,7 @@ export const create = async (data) => {
 export const getMyCoins = async (ownerId) => {
   try {
     const result = await requester.get(
-      `http://localhost:3030/data/coins?where=_ownerId%3D%22${ownerId}%22`
+      `${import.meta.env.VITE_API_URL}/data/coins?where=_ownerId%3D%22${ownerId}%22`
     );
     const coins = Object.values(result);
 
@@ -59,7 +61,7 @@ export const deleteCoin = async (coinId) => {
 export const getMyWishList = async (ownerId) => {
   try {
     const result = await requester.get(
-      `http://localhost:3030/data/wishlist?where=_ownerId%3D%22${ownerId}%22`
+      `${import.meta.env.VITE_API_URL}/data/wishlist?where=_ownerId%3D%22${ownerId}%22`
     );
     const list = Object.values(result);
     return list;
@@ -72,7 +74,7 @@ export const getMyWishList = async (ownerId) => {
 
 export const addToWishList = async (data) => {
    try {
-    const result = await requester.post("http://localhost:3030/data/wishlist", data);
+    const result = await requester.post(`${import.meta.env.VITE_API_URL}/data/wishlist`, data);
     return result;
   } catch (error) {
     return error.message;

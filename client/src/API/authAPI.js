@@ -1,6 +1,7 @@
 import * as requester from "./serverRequester.js";
 
-const BASE_URL = "http://localhost:3030/users";
+//const BASE_URL = "http://localhost:3030/users";
+const BASE_URL = `${import.meta.env.VITE_API_URL}/users`;
 
 export const register = async (data) => {
   try {
