@@ -17,10 +17,8 @@ export const getEvents = async () => {
 export const getEventById = async (id) => {
   
    try {
-    const result = await requester.get(`http://localhost:3030/data/events/${id}`);
-    
-    console.log(result);
-    
+    const result = await requester.get(`${import.meta.env.VITE_API_URL}/data/events/${id}`);
+      
     return result;
   } catch (error) {
     return error.message;

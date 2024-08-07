@@ -27,7 +27,7 @@ export default function Events() {
       <div className="grid gap-8 lg:grid-cols-3 py-2 px-4 mx-auto max-w-screen-xl lg:py-2 lg:px-6">
         {events.map((event) => {
           const { month, day, time } = formatEventDateTime(event.start_time);
-          console.log(event.event_id);
+          //console.log(event.event_id);
           
           return (
             <div
